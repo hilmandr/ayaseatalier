@@ -7,7 +7,7 @@ export default function HomeContact() {
   return (
     <>
       <h1 className=" text-5xl font-normal text-center mt-20" id="contact">
-        Let's get in touch
+        Let&#39;s get in touch
       </h1>
       <div className=" flex grid grid-cols-2 px-32 py-20 gap-y-20 gap-x-10">
         <div className=" aspect-[7/10] relative max-w-xs">
@@ -15,8 +15,8 @@ export default function HomeContact() {
         </div>
         <div className=" flex flex-col">
           <p className=" leading-loose">
-            Engage with Me: Feel Free to Get in Touch – I'm Excited to Connect
-            with You!
+            Engage with Me: Feel Free to Get in Touch – I&#39;m Excited to
+            Connect with You!
           </p>
           <div className=" pt-10">
             <label htmlFor="">What&apos;s your name?</label>
