@@ -23,7 +23,7 @@ export default function Header({ className }: HeaderProps) {
     },
     {
       label: "About",
-      path: "",
+      path: "/about",
     },
     {
       label: "Works",
@@ -47,16 +47,6 @@ export default function Header({ className }: HeaderProps) {
     },
   };
 
-  // const { isOpen, onOpen, onClose } = useOpenMenu();
-  // const toggleMenuOpen = () => {
-  //   if (isOpen) {
-  //     onClose();
-  //     document.body.style.overflow = "";
-  //   } else {
-  //     onOpen();
-  //     document.body.style.overflow = "hidden";
-  //   }
-  // };
   return (
     <>
       <div className="  w-full z-50 bg-black text-white fixed items-center">
@@ -65,17 +55,15 @@ export default function Header({ className }: HeaderProps) {
           initial="initial"
           exit="initial"
           className={cn(
-            " transform transition-all duration-200 flex flex-col lg:w-[35%] w-full h-[100vh] items-center justify-center bg-white absolute right-0 gap-6 -mr-[520px] delay-100",
+            " transform transition-all duration-200 flex flex-col lg:w-[35%] w-full h-[110vh] items-center justify-center bg-white absolute right-0 gap-6 -mr-[1000px] delay-100",
             {
               " transform transition-all duration-200 mr-[0] delay-75": isOpen,
             }
           )}
         >
-          {/* <div className="  transform transition-all duration-300 flex flex-col lg:w-[35%] w-full h-[100vh] items-center justify-center bg-orange-50 absolute right-0 top-0 bottom-0 gap-6"> */}
           {MENU.map((menu, i) => (
             <div
               key={i}
-              //   className=" flex flex-col"
               className=" flex flex-col w-full h-fit justify-start px-24 perspective-top perspective-400"
             >
               <Link
