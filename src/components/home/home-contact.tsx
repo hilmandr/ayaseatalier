@@ -9,11 +9,11 @@ export default function HomeContact() {
       <h1 className=" text-5xl font-normal text-center mt-20" id="contact">
         Let's get in touch
       </h1>
-      <div className=" flex grid grid-cols-2 px-32 py-20 gap-y-20 gap-x-10">
-        <div className=" aspect-[7/10] relative max-w-xs">
+      <div className=" flex grid lg:grid-cols-2 sm:grid-cols-1 px-32 py-20 gap-y-20 gap-x-10">
+        <div className=" aspect-[7/10] relative max-w-xs lg:block sm:hidden">
           <Image className="" src="/../image/contact.jpg" alt="" fill></Image>
         </div>
-        <div className=" flex flex-col">
+        <div className=" flex flex-col lg:visible">
           <p className=" leading-loose">
             Engage with Me: Feel Free to Get in Touch – I'm Excited to Connect
             with You!
