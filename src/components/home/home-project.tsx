@@ -19,13 +19,13 @@ export default function HomeProject({ projects }: ProjectItem2Props) {
             <h1 className=" text-5xl font-normal">WORKS</h1>
             <Link
               href="/projects"
-              className=" border border-stone-800 rounded-full py-2 px-5 text-sm text-stone-900 bg-white hover:bg-black hover:text-white transition-all duration-150"
+              className=" border border-stone-800 rounded-full py-2 px-5 text-sm text-stone-900 bg-white hover:bg-black hover:text-white transition-all duration-100"
             >
               Discover More
             </Link>
           </div>
         </div>
-        <div className=" flex grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 py-10 gap-10">
+        <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 py-10 gap-10">
           {projects?.map((projects, i) => (
             <ProjectItems2 project={projects} key={i} />
           ))}

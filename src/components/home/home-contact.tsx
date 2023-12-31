@@ -7,16 +7,16 @@ export default function HomeContact() {
   return (
     <>
       <h1 className=" text-5xl font-normal text-center mt-20" id="contact">
-        Let's get in touch
+        Let&#39;s get in touch
       </h1>
-      <div className=" flex grid lg:grid-cols-2 sm:grid-cols-1 px-32 py-20 gap-y-20 gap-x-10">
+      <div className=" grid lg:grid-cols-2 sm:grid-cols-1 px-32 py-20 gap-y-20 gap-x-10">
         <div className=" aspect-[7/10] relative max-w-xs lg:block sm:hidden">
           <Image className="" src="/../image/contact.jpg" alt="" fill></Image>
         </div>
         <div className=" flex flex-col lg:visible">
           <p className=" leading-loose">
-            Engage with Me: Feel Free to Get in Touch – I'm Excited to Connect
-            with You!
+            Engage with Me: Feel Free to Get in Touch – I&apos;m Excited to
+            Connect with You!
           </p>
           <div className=" pt-10">
             <label htmlFor="">What&apos;s your name?</label>

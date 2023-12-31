@@ -11,14 +11,14 @@ export default function Hero() {
         <div className="bg-black w-full h-full absolute -z-10 bg-opacity-50">
           {/* <Container> */}
           <div className=" flex flex-col md:flex w-full h-full container mx-auto px-5 lg:px-8 text-white z-0 justify-center">
-            <div className=" flex grid grid-cols-5">
-              <div className=" flex grid col-span-3">
+            <div className="  grid grid-cols-5">
+              <div className="  grid col-span-3">
                 <h1 className=" lg:text-6xl md:text-4xl text-4xl mt-36 font-semibold lg:leading-tight">
                   We Help You To Bring Your Dream Building.
                 </h1>
                 <Link
                   href="/projects"
-                  className=" w-48 bg-transparent py-4 px-6 border border-white text-center text-base rounded-full mt-4 hover:bg-white hover:text-black transition-all duration-200"
+                  className=" w-48 bg-transparent py-4 px-6 border border-white text-center rounded-full mt-4 hover:bg-white hover:text-black transition-all duration-200"
                 >
                   Discover Projects
                 </Link>
