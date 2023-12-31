@@ -18,7 +18,7 @@ export default function Hero() {
                 </h1>
                 <Link
                   href="/projects"
-                  className=" w-36 bg-transparent py-2 px-6 border border-white text-center rounded-full mt-4 hover:bg-white hover:text-black transition-all duration-200"
+                  className=" w-48 bg-transparent py-4 px-6 border border-white text-center text-base rounded-full mt-4 hover:bg-white hover:text-black transition-all duration-200"
                 >
                   Discover Projects
                 </Link>
