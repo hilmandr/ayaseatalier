@@ -1,40 +1,56 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Container from "./container";
+import { MENU } from "@/lib/constant";
 
 const Footer = () => {
   return (
-    <div className="  bg-black w-full text-white">
-      <div className=" container mx-auto px-14 items-center justify-between py-10 grid grid-cols-3 w-full">
-        <div className=" flex flex-col gap-2">
-          <h1 className=" font-semibold text-sm tracking-widest">SITE MAP</h1>
-          <Link href="/about">
-            <p className=" text-sm font-light">About</p>
-          </Link>
-          <Link href="/projects">
-            <p className=" text-sm font-light">Works</p>
-          </Link>
-        </div>
-        <div className=" w-full flex justify-center h-11 relative">
-          <Link href="/">
-            <Image
-              src="/image/brandmark putih-01.png"
-              alt=""
-              // fill
-              width={110}
-              height={110}
-              className=" object-cover object-center relative"
-            ></Image>
-          </Link>
-        </div>
-        <div className=" flex flex-col gap-2 text-right">
-          <h1 className=" font-semibold text-sm tracking-widest">CONTACT</h1>
-          <p className=" text-sm font-light">+62 812 3456 7890</p>
-          <p className=" text-sm font-light">ayaseatalier@gmail.com</p>
-          <h1 className=" font-semibold text-sm tracking-widest">INSTAGRAM</h1>
-        </div>
+    <>
+      <div className=" flex items-center bg-black w-full text-white text-base overflow-hidden">
+        {/* <div className=" relative -right-[100px] sm:-right-[600px]">
+          <p className=" flex w-full font-normal text-[120pt] opacity-20 whitespace-nowrap absolute select-none">
+            Ayase Atalier
+          </p>
+        </div> */}
+        <Container>
+          <div className=" flex gap-10 py-14 w-full">
+            <div className=" flex flex-col gap-2">
+              <h1 className=" font-semibold tracking-widest">SITE MAP</h1>
+              {MENU.map((menu, i) => (
+                <Link href={menu.path} className="" key={i}>
+                  {menu.label}
+                </Link>
+              ))}
+            </div>
+            <div className=" flex flex-col gap-2">
+              <h1 className=" font-semibold tracking-widest">CONTACT</h1>
+              <p className=" font-light">+62 812 3456 7890</p>
+              <p className=" font-light">ayaseatalier@gmail.com</p>
+              <h1 className=" font-semibold tracking-widest">INSTAGRAM</h1>
+            </div>
+          </div>
+          <div className=" flex w-full justify-between pb-5 items-center">
+            <p className=" font-light">
+              Copyright &copy; ayaseatalier.com 2023.
+            </p>
+
+            <div className="">
+              <div className=" flex w-20 h-10">
+                <Link href="/" className=" w-full relative">
+                  <Image
+                    src="/image/logogram putih-01.png"
+                    alt=""
+                    fill
+                    className=" object-cover object-center"
+                  ></Image>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Container>
       </div>
-    </div>
+    </>
   );
 };
 

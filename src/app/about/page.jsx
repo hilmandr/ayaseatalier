@@ -2,123 +2,109 @@ import React from "react";
 import Image from "next/image";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Container from "@/components/container";
 
 export default function About() {
   return (
     <>
       <Header />
-
-      <div className=" flex">
+      {/* <div className=" flex">
         <div className=" w-full h-[600px] bg-cover bg-center bg-[url('/image/about-hero.jpg')]"></div>
-      </div>
-
-      <div className=" flex items-center w-full justify-center py-20 gap-5">
-        <h1 className=" text-8xl font-semibold text-center">What is</h1>
-        <h1 className=" text-8xl font-normal text-center">Ayase Atalier?</h1>
-      </div>
-
-      <div className=" container mx-auto flex-col w-full grid grid-cols-2 items-center justify-between pb-20">
-        <div className=" flex w-full relative justify-center">
-          <Image
-            src="/image/brandmark hitam-01.png"
-            alt=""
-            width={300}
-            height={100}
-            className=""
-          ></Image>
+      </div> */}
+      <Container>
+        <h5 className=" text-xl text-left pt-40">About Ayase Atalier</h5>
+        <div className=" flex grid w-full lg:grid-cols-2 grid-cols-1 w-full pb-20 pt-5 justify-between gap-x-24">
+          <div className="">
+            <h1 className=" text-5xl font-bold">Not what you think</h1>
+          </div>
+          <div className=" flex flex-col w-full text-xl font-normal text-left">
+            <h1 className="">Ayase Atalier is not just architecture.</h1>
+            <h1 className="">Ayase Atalier is not just interior design.</h1>
+            <h1 className="">And Ayase Atalier is not just construction.</h1>
+            <h1 className=" pt-2">
+              We are all of the spaces in between, and the possibilities beyond
+              all of them.
+            </h1>
+          </div>
         </div>
-        <div className=" w-full flex max-w-lg">
-          <p className=" text-justify text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in
-            voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-            officia deserunt mollit anim id est laborum.
-          </p>
-        </div>
-        <div></div>
-        <div className=" w-full flex max-w-lg mt-10">
-          <p className=" text-justify text-sm">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-          </p>
-        </div>
-      </div>
 
+        <div className=" flex-col w-full grid lg:grid-cols-2 grid-cols-1 pb-20 gap-x-24 gap-y-5 mt-10">
+          <div className=" flex lg:w-96 w-80 justify-center mx-auto items-center relative aspect-[6/3]">
+            <Image
+              src="/image/brandmark hitam-01.png"
+              alt=""
+              className=" w-full aspect-[6/3]"
+              fill
+            ></Image>
+          </div>
+          <div className=" w-full flex ">
+            <p className=" text-justify text-base">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <div className=" w-full flex lg:col-start-2">
+            <p className=" text-justify text-base">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div>
+      </Container>
       <div className=" bg-black text-white">
-        <div className=" flex items-center w-full justify-center py-20 gap-5">
-          {/* <h1 className=" text-8xl font-semibold text-center">Our Team</h1> */}
-          <h1 className=" text-8xl font-normal text-center">Our Team</h1>
-        </div>
-        <div className="container mx-auto px-20 flex-col w-full grid grid-cols-2 items-center justify-between">
-          <div>
-            <h1 className=" text-base font-semibold">Btari Larasati Kirana</h1>
-            <span className=" text-xs font-normal align-top">Principal</span>
-            <p className=" text-justify font-normal text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+        <Container>
+          <div className=" flex items-center w-full justify-center py-14">
+            <h1 className=" text-8xl font-normal text-center">Our Team</h1>
           </div>
-          <div className="flex w-full relative justify-end">
-            <Image
-              src="/image/our-team-01.jpeg"
-              alt=""
-              width={300}
-              height={120}
-              className=""
-            ></Image>
+          <div className=" flex w-full justify-between grid lg:grid-cols-2 grid-cols-1 items-center gap-x-20 gap-y-10">
+            <div>
+              <h1 className=" text-base font-semibold">
+                Btari Larasati Kirana
+              </h1>
+              <span className=" text-xs font-normal align-top">Principal</span>
+              <p className=" text-justify font-normal text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <div className="flex w-full relative">
+              <Image
+                src="/image/about/our-team-01.jpeg"
+                alt=""
+                width={300}
+                height={120}
+                className=""
+              ></Image>
+            </div>
           </div>
-        </div>
-
-        <div className="container mx-auto px-20 flex-col w-full grid grid-cols-2 items-center justify-between">
-          <div className="flex w-full relative justify-start">
-            <Image
-              src="/image/our-team-01.jpeg"
-              alt=""
-              width={300}
-              height={120}
-              className=""
-            ></Image>
-          </div>
-          <div>
-            <h1 className=" text-base font-semibold">Btari Larasati Kirana</h1>
-            <span className=" text-xs font-normal align-top">Principal</span>
-            <p className=" text-justify font-normal text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-          </div>
-        </div>
+        </Container>
       </div>
-
       <Footer />
     </>
   );

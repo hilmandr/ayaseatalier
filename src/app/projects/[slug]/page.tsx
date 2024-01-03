@@ -6,14 +6,18 @@ import MDXContent from "@/components/mdx-content";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import { format } from "date-fns";
-import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { IProjects } from "@/types";
 
 interface PageParams {
   params: {
     slug: string;
   };
+}
+interface ProjectItem2Props {
+  project: IProjects;
 }
 
 export async function generateMetadata({
@@ -48,7 +52,7 @@ export default async function ProjectPage({ params }: PageParams) {
 
         <div className=" container mx-auto px-5 lg:px-8 w-full h-full absolute z-20">
           <div className=" flex grid grid-cols-5 w-full h-full items-center text-white">
-            <div className=" flex grid gap-y-2 col-span-3">
+            <div className=" flex grid gap-y-2 lg:col-span-3 col-span-5">
               <h1 className=" lg:text-6xl md:text-4xl text-4xl font-semibold lg:leading-tight">
                 {project.title}
               </h1>
@@ -64,7 +68,16 @@ export default async function ProjectPage({ params }: PageParams) {
         ></div>
       </div>
       <Container>
-        <div className=" xl:px-72 lg:px-48 md:px-32">
+        <div className=" xl:px-72 lg:px-48 md:px-32 pt-24">
+          <div className=" flex">
+            <Link href="/">
+              <p className=" font-semibold">Home/</p>
+            </Link>
+            <Link href="/projects">
+              <p className=" font-semibold">Projects</p>
+            </Link>
+            <p className=" cursor-default select-none">/{project.title}</p>
+          </div>
           <MDXContent content={content} />
         </div>
       </Container>
