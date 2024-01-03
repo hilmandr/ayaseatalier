@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import Logo from "./logo";
 import { Variants, motion } from "framer-motion";
 import { MENU } from "@/lib/constant";
+import { usePathname } from "next/navigation";
+import { useScrollPosition } from "@/hooks/use-scroll-position";
 
 interface HeaderProps {
   className?: string;
@@ -26,9 +28,20 @@ export default function Header({ className }: HeaderProps) {
     },
   };
 
+  const pathname = usePathname();
+  const scrollPosition = useScrollPosition();
+
   return (
     <>
-      <div className="  w-full z-50 bg-black text-white fixed items-center">
+      <div
+        className={cn(
+          "  w-full z-50 bg-black text-white fixed items-center",
+          {
+            "bg-transparent": pathname == "/",
+          },
+          { "bg-black": scrollPosition > 0 }
+        )}
+      >
         <motion.div
           variants={menuBlock}
           initial="initial"
