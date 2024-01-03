@@ -19,7 +19,7 @@ export default function ProjectItems2({ project }: ProjectItem2Props) {
                 src={project.thumbnail as string}
                 fill
                 alt=""
-                className="object-cover transform scale-125 group-hover:scale-100 duration-500 visible object-center"
+                className="object-cover transform transition-all scale-125 group-hover:scale-100 duration-500 visible object-center"
               ></Image>
             </div>
             <div className=" flex flex-col text-center p-3">

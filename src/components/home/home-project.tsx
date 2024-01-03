@@ -25,7 +25,7 @@ export default function HomeProject({ projects }: ProjectItem2Props) {
             </Link>
           </div>
         </div>
-        <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 py-10 gap-10">
+        <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 pt-10 gap-10">
           {projects?.map((projects, i) => (
             <ProjectItems2 project={projects} key={i} />
           ))}

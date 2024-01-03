@@ -5,35 +5,14 @@ import Container from "./container";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Logo from "./logo";
-import { IMenu } from "@/types";
-import { AnimatePresence, Variant, Variants, motion } from "framer-motion";
-import { perspective, slideIn, wrap } from "@/anim/nav";
-import useOpenMenu from "@/hooks/open-menu";
-import { set } from "date-fns";
+import { Variants, motion } from "framer-motion";
+import { MENU } from "@/lib/constant";
 
 interface HeaderProps {
   className?: string;
 }
 
 export default function Header({ className }: HeaderProps) {
-  const MENU: IMenu[] = [
-    {
-      label: "Home",
-      path: "/",
-    },
-    {
-      label: "About",
-      path: "/about",
-    },
-    {
-      label: "Works",
-      path: "/projects",
-    },
-    {
-      label: "Contact",
-      path: "/#contact",
-    },
-  ];
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const menuBlock: Variants = {
@@ -55,7 +34,7 @@ export default function Header({ className }: HeaderProps) {
           initial="initial"
           exit="initial"
           className={cn(
-            " transform transition-all duration-200 flex flex-col lg:w-[35%] w-full h-[110vh] items-center justify-center bg-white absolute right-0 gap-6 -mr-[1000px] delay-100",
+            " transform transition-all duration-200 pb-40 flex flex-col lg:w-[35%] w-full h-[110vh] items-center justify-center bg-white absolute right-0 gap-6 -mr-[1000px] delay-100",
             {
               " transform transition-all duration-200 mr-[0] delay-75": isOpen,
             }
@@ -64,12 +43,11 @@ export default function Header({ className }: HeaderProps) {
           {MENU.map((menu, i) => (
             <div
               key={i}
-              className=" flex flex-col w-full h-fit justify-start px-24 perspective-top perspective-400"
+              className=" flex flex-col w-full h-fit justify-start px-24"
             >
               <Link
                 href={menu.path}
-                className=" text-3xl text-stone-900 font-semibold text-left perspective-[120px] perspective-bottom"
-                key={i}
+                className=" text-3xl text-stone-900 font-semibold text-left"
               >
                 {menu.label}
               </Link>
