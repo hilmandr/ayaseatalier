@@ -13,7 +13,7 @@ export default function Hero() {
           <div className=" flex flex-col md:flex w-full h-full container mx-auto px-5 lg:px-8 text-white z-0 justify-center relative">
             <div className="  grid grid-cols-5">
               <div className="  grid col-span-3">
-                <h1 className=" lg:text-6xl md:text-4xl text-4xl mt-36 font-semibold lg:leading-tight">
+                <h1 className=" lg:text-6xl md:text-4xl text-4xl font-semibold lg:leading-tight">
                   We Help You To Bring Your Dream Building.
                 </h1>
                 <Link
@@ -34,8 +34,8 @@ export default function Hero() {
                 duration={2000}
               >
                 <PiArrowCircleDownThin
-                  class="relative lg:inline-block md:hidden hidden cursor-pointer"
-                  size={70}
+                  class="relative cursor-pointer"
+                  size={60}
                 />
               </LinkRS>
             </div>

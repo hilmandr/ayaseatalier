@@ -7,17 +7,13 @@ import Container from "@/components/container";
 export default function About() {
   return (
     <>
-      <Header />
-      {/* <div className=" flex">
-        <div className=" w-full h-[600px] bg-cover bg-center bg-[url('/image/about-hero.jpg')]"></div>
-      </div> */}
       <Container>
         <h5 className=" text-xl text-left pt-40">About Ayase Atalier</h5>
-        <div className=" flex grid w-full lg:grid-cols-2 grid-cols-1 w-full pb-20 pt-5 justify-between gap-x-24">
+        <div className=" flex grid w-full lg:grid-cols-2 grid-cols-1 pb-20 pt-5 justify-between gap-x-24 gap-y-6">
           <div className="">
             <h1 className=" text-5xl font-bold">Not what you think</h1>
           </div>
-          <div className=" flex flex-col w-full text-xl font-normal text-left">
+          <div className=" flex flex-col w-full sm:text-xl text-base font-normal text-left">
             <h1 className="">Ayase Atalier is not just architecture.</h1>
             <h1 className="">Ayase Atalier is not just interior design.</h1>
             <h1 className="">And Ayase Atalier is not just construction.</h1>
@@ -75,7 +71,7 @@ export default function About() {
       <div className=" bg-black text-white">
         <Container>
           <div className=" flex items-center w-full justify-center py-14">
-            <h1 className=" text-8xl font-normal text-center">Our Team</h1>
+            <h1 className=" text-5xl font-bold text-center">Our Team</h1>
           </div>
           <div className=" flex w-full justify-between grid lg:grid-cols-2 grid-cols-1 items-center gap-x-20 gap-y-10">
             <div>
@@ -105,7 +101,6 @@ export default function About() {
           </div>
         </Container>
       </div>
-      <Footer />
     </>
   );
 }

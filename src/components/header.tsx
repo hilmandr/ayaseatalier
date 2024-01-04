@@ -37,9 +37,13 @@ export default function Header({ className }: HeaderProps) {
         className={cn(
           "  w-full z-50 bg-black text-white fixed items-center",
           {
-            "bg-transparent": pathname == "/",
+            "bg-transparent transition-all transform duration-200":
+              pathname == "/",
           },
-          { "bg-black": scrollPosition > 0 }
+          {
+            "bg-black transition-all transform duration-200":
+              scrollPosition > 775,
+          }
         )}
       >
         <motion.div

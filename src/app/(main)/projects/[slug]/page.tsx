@@ -16,19 +16,17 @@ interface PageParams {
     slug: string;
   };
 }
-interface ProjectItem2Props {
-  project: IProjects;
-}
+// interface ProjectItem2Props {
+//   project: IProjects;
+// }
 
-export async function generateMetadata({
-  params,
-}: PageParams): Promise<Metadata> {
-  const project = getProjectsBySlug(params.slug);
-
+export const generateMetadata = ({ params }: PageParams): Metadata => {
+  const post = getProjectsBySlug(params.slug);
   return {
-    title: project.title,
+    title: post.title + " - Ayaase Atalier",
+    description: post.summary,
   };
-}
+};
 
 export default async function ProjectPage({ params }: PageParams) {
   const project = getProjectsBySlug(params.slug);
@@ -45,8 +43,6 @@ export default async function ProjectPage({ params }: PageParams) {
 
   return (
     <>
-      <Header />
-
       <div className=" w-full flex items-center justify-center">
         <div className=" bg-black w-full h-[700px] absolute z-10 bg-opacity-50"></div>
 
@@ -81,7 +77,6 @@ export default async function ProjectPage({ params }: PageParams) {
           <MDXContent content={content} />
         </div>
       </Container>
-      <Footer />
     </>
   );
 }

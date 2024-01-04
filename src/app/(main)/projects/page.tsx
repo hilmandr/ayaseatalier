@@ -1,15 +1,20 @@
-import { getProjects } from "@/services/project";
+import { getProjects, getProjectsBySlug } from "@/services/project";
 import Container from "@/components/container";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ProjectItems2 from "@/components/project-item";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects - Ayase Atalier",
+};
+
 export default function ProjectItemPage() {
   const projects = getProjects();
 
   return (
     <>
-      <Header />
       <Container>
         <div className=" flex pt-32 ">
           <Link href="/">
@@ -23,7 +28,6 @@ export default function ProjectItemPage() {
           ))}
         </div>
       </Container>
-      <Footer />
     </>
   );
 }

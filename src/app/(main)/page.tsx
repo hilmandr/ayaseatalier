@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
-import { PiArrowCircleDownThin } from "react-icons/pi";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { getProjects } from "@/services/project";
@@ -13,9 +11,6 @@ export default function Home() {
   const projects = getProjects();
   return (
     <>
-      <div className=" ">
-        <Header />
-      </div>
       <Hero />
       <Container>
         <div className="  flex-col justify-between gap-4 lg:gap-10 flex lg:flex-row items-center py-28 bg-white w-full">
@@ -42,7 +37,6 @@ export default function Home() {
         <HomeProject projects={projects} />
         <HomeContact />
       </Container>
-      <Footer />
     </>
   );
 }
