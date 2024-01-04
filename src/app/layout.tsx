@@ -12,17 +12,17 @@ export const metadata: Metadata = {
   title: "Ayase Atalier",
   metadataBase: new URL("https://ayaseatalier.com/"),
   description: "Hi, i'm Btari Larasati Kirana. I'm a Architec.",
-  icons: "/image/logogram hitam-01.png",
+  icons: "/image/icon-black.png",
   creator: "Btari Larasati Kirana",
   publisher: "Btari Larasati Kirana",
   openGraph: {
     title: "Ayase Atalier",
     description: "Hi, i'm Btari Larasati Kirana. I'm a Architec.",
-    images: ["/image/logogram hitam-01.png"],
+    images: ["/image/banner-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/image/logogram hitam-01.png"],
+    images: ["/image/banner-image.png"],
   },
 };
 
