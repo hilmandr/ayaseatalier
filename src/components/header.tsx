@@ -5,7 +5,7 @@ import Container from "./container";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Logo from "./logo";
-import { Variants, motion } from "framer-motion";
+import { AnimatePresence, Variants, motion } from "framer-motion";
 import { MENU } from "@/lib/constant";
 import { usePathname } from "next/navigation";
 import { useScrollPosition } from "@/hooks/use-scroll-position";
@@ -31,6 +31,57 @@ export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
   const scrollPosition = useScrollPosition();
 
+  const menuVars: Variants = {
+    initial: {
+      scaleX: 0,
+    },
+    animate: {
+      scaleX: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.12, 0, 0.39, 0],
+      },
+    },
+    exit: {
+      scaleX: 0,
+      transition: {
+        delay: 0.5,
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  const mobileLinkVars: Variants = {
+    initial: {
+      y: "30vh",
+      transition: {
+        duration: 0.5,
+      },
+    },
+    open: {
+      y: 0,
+      transition: {
+        duration: 0.7,
+      },
+    },
+  };
+  const navVars: Variants = {
+    initial: {
+      transition: {
+        staggerChildren: 0.09,
+        staggerDirection: -1,
+      },
+    },
+    open: {
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.09,
+        staggerDirection: 1,
+      },
+    },
+  };
+
   return (
     <>
       <div
@@ -46,31 +97,40 @@ export default function Header({ className }: HeaderProps) {
           }
         )}
       >
-        <motion.div
-          variants={menuBlock}
-          initial="initial"
-          exit="initial"
-          className={cn(
-            " transform transition-all duration-200 pb-40 flex flex-col lg:w-[35%] w-full h-[110vh] items-center justify-center bg-white absolute right-0 gap-6 -mr-[1000px] delay-100",
-            {
-              " transform transition-all duration-200 mr-[0] delay-75": isOpen,
-            }
-          )}
-        >
-          {MENU.map((menu, i) => (
-            <div
-              key={i}
-              className=" flex flex-col w-full h-fit justify-start px-24"
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              variants={menuVars}
+              className="fixed right-0 z-[49] hidden h-screen w-full lg:w-[480px] origin-right items-center justify-center bg-white lg:flex"
+              initial="initial"
+              animate="animate"
+              exit="exit"
             >
-              <Link
-                href={menu.path}
-                className=" text-3xl text-stone-900 font-semibold text-left"
+              <motion.div
+                variants={navVars}
+                initial="initial"
+                animate="open"
+                exit="initial"
+                className=" flex flex-col gap-4"
               >
-                {menu.label}
-              </Link>
-            </div>
-          ))}
-        </motion.div>
+                {MENU.map((menu, i) => (
+                  <div className=" overflow-hidden" key={i}>
+                    <motion.div variants={mobileLinkVars}>
+                      <Link
+                        href={menu.path}
+                        className={cn(
+                          " group relative text-[36px] leading-tight text-black"
+                        )}
+                      >
+                        {menu.label}
+                      </Link>
+                    </motion.div>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <Container>
           <div className=" flex items-center py-4 justify-between">
