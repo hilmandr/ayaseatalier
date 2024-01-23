@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Ayase Atalier",
-  metadataBase: new URL("https://ayaseatalier.com/"),
+  metadataBase: new URL("https://ayaseatalier.vercel.app/"),
   description: "Hi, i'm Btari Larasati Kirana. I'm a Architec.",
   icons: "/image/icon-white.png",
   creator: "Btari Larasati Kirana",
