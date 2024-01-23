@@ -1,6 +1,4 @@
-import { cn } from "@/lib/utils";
 import "./globals.css";
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -11,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Ayase Atalier",
   metadataBase: new URL("https://ayaseatalier.vercel.app/"),
-  description: "Hi, i'm Btari Larasati Kirana. I'm a Architec.",
+  description: "Hi, i'm Btari Larasati Kirana. I'm an Architec.",
   icons: "/image/icon-white.png",
   creator: "Btari Larasati Kirana",
   publisher: "Btari Larasati Kirana",
