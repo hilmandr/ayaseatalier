@@ -27,7 +27,9 @@ const Footer = () => {
               <h1 className=" font-semibold tracking-widest">CONTACT</h1>
               <p className=" font-light">+62 812 3456 7890</p>
               <p className=" font-light">ayaseatalier@gmail.com</p>
-              <h1 className=" font-semibold tracking-widest">INSTAGRAM</h1>
+              <Link href="">
+                <h1 className=" font-semibold tracking-widest">INSTAGRAM</h1>
+              </Link>
             </div>
           </div>
           <div className=" flex w-full justify-between pb-5 items-center">

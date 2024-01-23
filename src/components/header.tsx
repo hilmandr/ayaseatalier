@@ -4,7 +4,7 @@ import Link from "next/link";
 import Container from "./container";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import Logo from "./logo";
+import { LogoPutih, LogoHitam } from "./logo";
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import { MENU } from "@/lib/constant";
 import { usePathname } from "next/navigation";
@@ -16,18 +16,6 @@ interface HeaderProps {
 
 export default function Header({ className }: HeaderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const menuBlock: Variants = {
-    initial: {
-      transition: {
-        duration: 100,
-        delay: 100,
-        type: "tween",
-        ease: [0.76, 0, 0.24, 1],
-      },
-    },
-  };
-
   const pathname = usePathname();
   const scrollPosition = useScrollPosition();
 
@@ -54,17 +42,23 @@ export default function Header({ className }: HeaderProps) {
 
   const mobileLinkVars: Variants = {
     initial: {
-      y: "30vh",
+      opacity: 0,
       transition: {
         duration: 0.5,
+        type: "linear",
+        ease: [0.76, 0, 0.24, 1],
       },
     },
-    open: {
-      y: 0,
+    open: (i) => ({
+      opacity: 1,
       transition: {
         duration: 0.7,
+        type: "linear",
+        delay: 0.5 + i * 0.1,
+        ease: [0.215, 0.61, 0.355, 1],
+        opacity: { duration: 0.5 },
       },
-    },
+    }),
   };
   const navVars: Variants = {
     initial: {
@@ -101,11 +95,14 @@ export default function Header({ className }: HeaderProps) {
           {isOpen && (
             <motion.div
               variants={menuVars}
-              className="fixed right-0 z-[49] hidden h-screen w-full lg:w-[480px] origin-right items-center justify-center bg-white lg:flex"
+              className="fixed right-0 z-[49] h-screen w-full lg:w-[480px] origin-right items-center justify-center bg-white flex"
               initial="initial"
               animate="animate"
               exit="exit"
             >
+              <div className=" absolute top-0 left-0 py-4 md:px-24 sm:px-12 px-4 lg:hidden">
+                <LogoHitam />
+              </div>
               <motion.div
                 variants={navVars}
                 initial="initial"
@@ -119,7 +116,7 @@ export default function Header({ className }: HeaderProps) {
                       <Link
                         href={menu.path}
                         className={cn(
-                          " group relative text-[36px] leading-tight text-black"
+                          " group relative text-[36px] font-semibold leading-tight text-black perspective-origin-bottom-left perspective-200"
                         )}
                       >
                         {menu.label}
@@ -135,7 +132,7 @@ export default function Header({ className }: HeaderProps) {
         <Container>
           <div className=" flex items-center py-4 justify-between">
             <div className=" flex flex-1">
-              <Logo />
+              <LogoPutih />
             </div>
 
             <div className=" flex flex-row items-center gap-3 cursor-pointer relative">
