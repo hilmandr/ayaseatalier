@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "Ayase Atalier",
   metadataBase: new URL("https://ayaseatalier.com/"),
   description: "Hi, i'm Btari Larasati Kirana. I'm a Architec.",
-  icons: "/image/icon-black.png",
+  icons: "/image/icon-white.png",
   creator: "Btari Larasati Kirana",
   publisher: "Btari Larasati Kirana",
   openGraph: {
