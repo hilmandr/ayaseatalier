@@ -1,12 +1,12 @@
 import nodemailer from "nodemailer";
 
 export async function POST(
-  req: { body: { name: any; email: any; message: any } },
+  req: Request,
   res: {
     status: (arg0: number) => {
       (): any;
       new (): any;
-      json: { (arg0: { error: any }): any; new (): any };
+      json: { (arg0: { error: string }): any; new (): any };
     };
   }
 ) {
@@ -30,7 +30,9 @@ export async function POST(
         <p>${message}</p><br>`,
     });
   } catch (error) {
-    return res.status(500).json({ error: error.message || error.toString() });
+    const err = error as Error;
+    err.message;
+    return res.status(500).json({ error: err.message || err.toString() });
   }
 
   return res.status(200).json({ error: "" });
