@@ -2,7 +2,6 @@
 
 import Footer from "@/components/footer";
 import LenisScroll from "@/components/lennis-scroll";
-import { LogoHitam, LogoPutih } from "@/components/logo";
 import Header from "@/components/header";
 import { usePathname } from "next/navigation";
 

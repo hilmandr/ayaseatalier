@@ -134,7 +134,9 @@ export default function Header({ className }: HeaderProps) {
             <div className=" flex flex-1">
               <LogoPutih />
             </div>
-
+            <div className=" pr-5">
+              <h3 className=" text-white cursor-pointer">EN</h3>
+            </div>
             <div className=" flex flex-row items-center gap-3 cursor-pointer relative">
               <button
                 className={cn(
