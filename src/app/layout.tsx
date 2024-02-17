@@ -1,10 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import LenisScroll from "@/components/lennis-scroll";
-
-const inter = Inter({ subsets: ["latin"] });
+import { mulish } from "@/lib/constant";
 
 export const metadata: Metadata = {
   title: "Ayase Atalier",
@@ -31,8 +29,8 @@ export default function RootLayout({
 }) {
   return (
     <LenisScroll>
-      <html lang="en" className=" font-['Inter Tight']">
-        <body className={inter.className}>{children}</body>
+      <html lang="en" className="">
+        <body className={mulish.className}>{children}</body>
       </html>
     </LenisScroll>
   );
