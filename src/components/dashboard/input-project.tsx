@@ -1,14 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import dynamic from "next/dynamic";
-import React, { forwardRef, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { EditorProps } from "react-draft-wysiwyg";
-import { Input } from "../ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -23,72 +14,69 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import {
+  CreateProjectRequest,
+  createProjectRequest,
+} from "@/lib/validations/project.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
+import dynamic from "next/dynamic";
+import React, { forwardRef, useCallback } from "react";
+import { EditorProps } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useDropzone } from "react-dropzone";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { format } from "date-fns";
-import { CalendarIcon } from "@radix-ui/react-icons";
+import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { createProject } from "@/actions/project";
+import { toast } from "sonner";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
 );
-const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title must be filled.",
-  }),
-  place: z.string().min(1, {
-    message: "Place must be filled.",
-  }),
-  client: z.string().min(1, {
-    message: "Place must be filled.",
-  }),
-  date: z.string().min(1, {
-    message: "Place must be filled.",
-  }),
-  summary: z.string().min(1, {
-    message: "Place must be filled.",
-  }),
-  thumbnail: z.string().min(1, {
-    message: "Place must be filled.",
-  }),
-});
 
 export default forwardRef<Object, EditorProps>(function RichTextEditor(
   props,
   ref
 ) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreateProjectRequest>({
+    resolver: zodResolver(createProjectRequest),
     defaultValues: {
-      title: "",
-      place: "",
-      client: "",
-      date: "",
-      summary: "",
-      thumbnail: "",
+      title: "title test",
+      place: "place test",
+      client: "client test",
+      date: new Date(),
+      summary: "summary",
+      thumbnail: "test",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-  }
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+
+  const onSubmit: SubmitHandler<CreateProjectRequest> = useCallback(
+    async (data) => {
+      const res = await createProject(data);
+
+      toast.success("success add project");
+      return res;
+    },
+    []
+  );
+
   const onDrop = useCallback(() => {
     // Do something with the files
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return (
     <>
       <div className=" flex-1 pt-5 w-full">
         <div className=" flex-1 w-full px-6 pb-6 border border-slate-200 rounded-lg">
           <Form {...form}>
-            <form
-              // onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-4"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <div className=" grid grid-cols-2 w-full gap-6 py-4">
                 <FormField
                   control={form.control}

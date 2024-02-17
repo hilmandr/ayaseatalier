@@ -4,6 +4,7 @@ import LenisScroll from "@/components/lennis-scroll";
 import { usePathname } from "next/navigation";
 import HeaderDashboard from "@/components/dashboard/sidenav";
 import { NextUIProvider } from "@nextui-org/react";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function MainLayout({
   children,
@@ -19,6 +20,7 @@ export default function MainLayout({
           <main className=" w-full flex">{children}</main>
           {/* <Footer /> */}
         </div>
+        <Toaster />
       </LenisScroll>
     </NextUIProvider>
   );
