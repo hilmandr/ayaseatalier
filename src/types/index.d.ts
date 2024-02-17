@@ -6,6 +6,7 @@ declare interface IProjects {
   thumbnail: string;
   date: Date;
   summary: string;
+  client: string;
   content: string;
   slug: string;
   place: string;
@@ -15,4 +16,11 @@ declare interface IProjects {
 export interface IMenu {
   label: string;
   path: string;
+}
+
+export interface IMenuDashboard {
+  label: string;
+  path: string;
+  icon: IconType | Icon;
+  // active: string;
 }

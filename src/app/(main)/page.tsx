@@ -1,6 +1,4 @@
 import Image from "next/image";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { getProjects } from "@/services/project";
 import Container from "@/components/container";
 import Hero from "@/components/home/hero";
