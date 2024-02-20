@@ -1,8 +1,27 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+  common: {
+    works: "Works",
+    email: "Email",
+    send: "Kirim",
+    name: "Nama",
+    siteMap: "Sitemap",
+    home: "Beranda",
+    about: "Tentang",
+    contact: "Kontak",
+  },
+
   hero: {
     welcome: "Kami Siap Untuk Mewujudkan Rumah Impian Anda",
     button: "Temukan Karya",
+  },
+
+  works: {
+    discoverMore: "Temukan Lebih Banyak",
+  },
+
+  about: {
+    ourTeam: "Tim Kami",
   },
 
   afterHero:
