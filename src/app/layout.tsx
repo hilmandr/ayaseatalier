@@ -1,8 +1,7 @@
-import "./globals.css";
+import Providers from "@/components/providers";
+import { mulish } from "@/lib/constant";
 import type { Metadata } from "next";
 import "./globals.css";
-import LenisScroll from "@/components/lennis-scroll";
-import { mulish } from "@/lib/constant";
 
 export const metadata: Metadata = {
   title: "Ayase Atalier",
@@ -28,10 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <LenisScroll>
-      <html lang="en" className="">
-        <body className={mulish.className}>{children}</body>
-      </html>
-    </LenisScroll>
+    <html lang="en" className="">
+      <body className={mulish.className}>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }

@@ -1,8 +1,27 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+  common: {
+    works: "Works",
+    email: "Email",
+    send: "Send",
+    name: "Name",
+    siteMap: "Sitemap",
+    home: "Home",
+    about: "About",
+    contact: "Contact",
+  },
+
   hero: {
     welcome: "We Help You To Bring Your Dream Building.",
     button: "Discover Projects",
+  },
+
+  works: {
+    discoverMore: "Discover More",
+  },
+
+  about: {
+    ourTeam: "Our Team",
   },
 
   afterHero:

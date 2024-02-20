@@ -3,8 +3,10 @@ import React from "react";
 import Link from "next/link";
 import { PiArrowCircleDownThin } from "react-icons/pi";
 import { Link as LinkRS } from "react-scroll";
+import { useI18n } from "@/locales/client";
 
 export default function Hero() {
+  const t = useI18n();
   return (
     <>
       <div className=" bg-[url('/image/hero.jpg')] bg-center bg-cover w-full h-[100dvh] relative z-10">
@@ -14,13 +16,13 @@ export default function Hero() {
             <div className="  grid grid-cols-5">
               <div className="  grid col-span-3">
                 <h1 className=" lg:text-6xl md:text-4xl text-4xl font-semibold lg:leading-tight">
-                  We Help You To Bring Your Dream Building.
+                  {t("hero.welcome")}
                 </h1>
                 <Link
                   href="/projects"
                   className=" w-48 bg-transparent py-4 px-6 border border-white text-center rounded-full mt-4 hover:bg-white hover:text-black transition-all duration-200"
                 >
-                  Discover Projects
+                  {t("hero.button")}
                 </Link>
               </div>
             </div>
@@ -34,7 +36,7 @@ export default function Hero() {
                 duration={2000}
               >
                 <PiArrowCircleDownThin
-                  class="relative cursor-pointer"
+                  className="relative cursor-pointer"
                   size={60}
                 />
               </LinkRS>
