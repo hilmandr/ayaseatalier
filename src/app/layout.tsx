@@ -1,4 +1,3 @@
-import Providers from "@/components/providers";
 import { mulish } from "@/lib/constant";
 import type { Metadata } from "next";
 import "./globals.css";
@@ -28,9 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="">
-      <body className={mulish.className}>
-        <Providers>{children}</Providers>
-      </body>
+      <body className={mulish.className}>{children}</body>
     </html>
   );
 }
