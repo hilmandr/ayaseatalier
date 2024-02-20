@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import LenisScroll from "@/components/lennis-scroll";
 import Header from "@/components/header";
 import { usePathname } from "next/navigation";
+import Providers from "@/components/providers";
 
 export default function MainLayout({
   children,
@@ -12,12 +13,12 @@ export default function MainLayout({
 }) {
   const pathname = usePathname();
   return (
-    <LenisScroll>
+    <Providers>
       <Header />
       <div className=" flex min-h-screen w-full flex-col">
         <main className=" w-full flex-1">{children}</main>
         <Footer />
       </div>
-    </LenisScroll>
+    </Providers>
   );
 }
