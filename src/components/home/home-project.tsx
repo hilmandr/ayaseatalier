@@ -5,23 +5,27 @@ import ProjectItems2 from "../project-item";
 import { getProjects } from "@/services/project";
 import { Element } from "react-scroll";
 import { IProjects } from "@/types";
+import { useI18n } from "@/locales/client";
 
 interface ProjectItem2Props {
   projects: IProjects[];
 }
 
 export default function HomeProject({ projects }: ProjectItem2Props) {
+  const t = useI18n();
   return (
     <>
       <Element name="project">
         <div className=" flex">
           <div className=" flex w-full items-center justify-between">
-            <h1 className=" text-5xl font-normal">WORKS</h1>
+            <h1 className=" text-5xl font-normal capitalize">
+              {t("common.works")}
+            </h1>
             <Link
               href="/projects"
               className=" border border-stone-800 rounded-full py-2 px-5 text-sm text-stone-900 bg-white hover:bg-black hover:text-white transition-all duration-100"
             >
-              Discover More
+              {t("works.discoverMore")}
             </Link>
           </div>
         </div>
