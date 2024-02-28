@@ -34,11 +34,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { createProject } from "@/actions/project";
 import { toast } from "sonner";
-
-const Editor = dynamic(
-  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
-  { ssr: false }
-);
+import Tiptap from "../tiptap";
 
 export default forwardRef<Object, EditorProps>(function RichTextEditor(
   props,
@@ -47,12 +43,12 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
   const form = useForm<CreateProjectRequest>({
     resolver: zodResolver(createProjectRequest),
     defaultValues: {
-      title: "title test",
-      place: "place test",
-      client: "client test",
+      title: "",
+      place: "",
+      client: "",
       date: new Date(),
-      summary: "summary",
-      thumbnail: "test",
+      summary: "",
+      thumbnail: "",
     },
   });
 
@@ -70,7 +66,9 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
     // Do something with the files
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  });
   return (
     <>
       <div className=" flex-1 pt-5 w-full">
@@ -190,7 +188,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     </FormItem>
                   )}
                 />
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="thumbnail"
                   render={({ field }) => (
@@ -218,29 +216,10 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
               </div>
 
-              <Editor
-                editorClassName={cn(
-                  "border rounded-md px-3 min-h-[150px] cursor-text ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2",
-                  props.editorClassName
-                )}
-                toolbar={{
-                  options: ["inline", "list", "link", "history", "image"],
-                  inline: {
-                    options: ["bold", "italic", "underline"],
-                  },
-                }}
-                editorRef={(r: Object | null) => {
-                  if (typeof ref === "function") {
-                    ref(r);
-                  } else if (ref) {
-                    ref.current = r;
-                  }
-                }}
-                {...props}
-              />
+              <Tiptap />
               <Button type="submit">Submit</Button>
             </form>
           </Form>

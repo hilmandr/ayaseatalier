@@ -4,11 +4,11 @@ import { MENU_DASHBOARD } from "@/lib/constant";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export default function HeaderDashboard() {
+export default function SideNav() {
   const pathname = usePathname();
   return (
     <>
-      <div className=" flex flex-col w-[20%] h-full bg-slate-50 overflow-hidden z-20">
+      <div className=" flex flex-col w-[20%] h-screen bg-slate-50 overflow-hidden z-20">
         <div className=" flex w-full h-24 items-center justify-center ">
           <LogoHitam />
         </div>

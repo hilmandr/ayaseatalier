@@ -9,7 +9,7 @@ interface ProjectContentProps {
 
 export default function MDXContent({ content }: ProjectContentProps) {
   return (
-    <div className=" justify-center prose prose-stone max-w-full prose-sm mt-10 lg:text-lg text-base leading-relaxed">
+    <div className=" justify-center text-justify prose prose-stone max-w-full prose-sm mt-10 lg:text-lg text-base leading-relaxed pb-10">
       <MDXRemote {...content} />
     </div>
   );

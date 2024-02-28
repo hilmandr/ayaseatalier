@@ -10,6 +10,7 @@ import Link from "next/link";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { IProjects } from "@/types";
+import { RxCaretRight } from "react-icons/rx";
 
 interface PageParams {
   params: {
@@ -64,15 +65,17 @@ export default async function ProjectPage({ params }: PageParams) {
         ></div>
       </div>
       <Container>
-        <div className=" xl:px-72 lg:px-48 md:px-32 pt-24">
-          <div className=" flex">
+        <div className=" xl:px-[350px] lg:px-48 md:px-32 pt-24 space-y-5">
+          <div className=" flex w-full items-center">
             <Link href="/">
-              <p className=" font-semibold">Home/</p>
+              <p className=" font-bold">Home </p>
             </Link>
+            <RxCaretRight />
             <Link href="/projects">
-              <p className=" font-semibold">Projects</p>
+              <p className=" font-bold">Projects</p>
             </Link>
-            <p className=" cursor-default select-none">/{project.title}</p>
+            <RxCaretRight />
+            <p>{project.title}</p>
           </div>
           <MDXContent content={content} />
         </div>
