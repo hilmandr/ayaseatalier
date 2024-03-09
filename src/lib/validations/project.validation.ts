@@ -17,6 +17,9 @@ export const createProjectRequest = z.object({
   thumbnail: z.string().min(1, {
     message: "Place must be filled.",
   }),
+  content: z.string().min(1, {
+    message: "Place must be filled.",
+  }),
 });
 
 export type CreateProjectRequest = z.infer<typeof createProjectRequest>;

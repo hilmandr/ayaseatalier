@@ -88,14 +88,13 @@ export default function Header({ className }: HeaderProps) {
     <>
       <div
         className={cn(
-          "  w-full z-50 bg-black text-white fixed items-center",
+          "  w-full z-50 bg-transparent text-white fixed items-center transition-all transform duration-500",
           {
-            "bg-transparent transition-all transform duration-200":
-              pathname == "/",
+            "bg-black transition-all transform duration-500": pathname == "/",
           },
           {
-            "bg-black transition-all transform duration-200":
-              scrollPosition > 775,
+            "bg-black transition-all transform duration-500":
+              scrollPosition > 100,
           }
         )}
       >

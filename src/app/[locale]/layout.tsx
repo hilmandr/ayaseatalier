@@ -1,7 +1,6 @@
 "use client";
 
 import Footer from "@/components/footer";
-import LenisScroll from "@/components/lennis-scroll";
 import Header from "@/components/header";
 import { usePathname } from "next/navigation";
 import Providers from "@/components/providers";

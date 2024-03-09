@@ -1,11 +1,11 @@
+import Link from "next/link";
 import Header from "@/components/dashboard/header";
 import Container from "@/components/container";
+import ProjectsTableDb from "@/components/dashboard/project-table";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { IoIosAddCircle } from "react-icons/io";
 import { Input } from "@/components/ui/input";
 import { GetProjects } from "@/actions/project";
-import ProjectsTableDb from "@/components/dashboard/project-table";
 
 export default async function InputProjectPage() {
   const projects = await GetProjects();

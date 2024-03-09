@@ -1,15 +1,11 @@
-import { getProjectsBySlug } from "@/services/project";
 import Container from "@/components/container";
+import Link from "next/link";
+import rehypeSlug from "rehype-slug";
+import rehypeHighlight from "rehype-highlight";
+import MDXContent from "@/components/mdx-content";
+import { getProjectsBySlug } from "@/services/project";
 import { Metadata } from "next";
 import { serialize } from "next-mdx-remote/serialize";
-import MDXContent from "@/components/mdx-content";
-import rehypeHighlight from "rehype-highlight";
-import rehypeSlug from "rehype-slug";
-import { format } from "date-fns";
-import Link from "next/link";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import { IProjects } from "@/types";
 import { RxCaretRight } from "react-icons/rx";
 
 interface PageParams {
@@ -17,9 +13,6 @@ interface PageParams {
     slug: string;
   };
 }
-// interface ProjectItem2Props {
-//   project: IProjects;
-// }
 
 export const generateMetadata = ({ params }: PageParams): Metadata => {
   const post = getProjectsBySlug(params.slug);

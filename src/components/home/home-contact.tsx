@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useI18n } from "@/locales/client";
 
 export default function HomeContact() {

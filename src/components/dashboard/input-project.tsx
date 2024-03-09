@@ -1,5 +1,20 @@
 "use client";
 
+import React, { forwardRef, useCallback } from "react";
+import ContentEditor from "./froala-editor";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { createProject } from "@/actions/project";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { format } from "date-fns";
+import { EditorProps } from "react-draft-wysiwyg";
+import { useDropzone } from "react-dropzone";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -19,22 +34,6 @@ import {
   CreateProjectRequest,
   createProjectRequest,
 } from "@/lib/validations/project.validation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
-import dynamic from "next/dynamic";
-import React, { forwardRef, useCallback } from "react";
-import { EditorProps } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useDropzone } from "react-dropzone";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { createProject } from "@/actions/project";
-import { toast } from "sonner";
-import Tiptap from "../tiptap";
 
 export default forwardRef<Object, EditorProps>(function RichTextEditor(
   props,
@@ -46,9 +45,10 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
       title: "",
       place: "",
       client: "",
+      content: "",
       date: new Date(),
       summary: "",
-      thumbnail: "",
+      thumbnail: "Thumbnail",
     },
   });
 
@@ -188,7 +188,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     </FormItem>
                   )}
                 />
-                {/* <FormField
+                <FormField
                   control={form.control}
                   name="thumbnail"
                   render={({ field }) => (
@@ -216,10 +216,28 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                       <FormMessage />
                     </FormItem>
                   )}
-                /> */}
+                />
               </div>
 
-              <Tiptap />
+              <FormField
+                control={form.control}
+                name="content"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Project&apos;s Client</FormLabel>
+                    <FormControl>
+                      <ContentEditor
+                        setValue={(value) => form.setValue("content", value)}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      This is the client&apos;s name of your project&apos;s.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <Button type="submit">Submit</Button>
             </form>
           </Form>

@@ -1,3 +1,10 @@
+import Link from "next/link";
+import { format } from "date-fns";
+import { Button } from "../ui/button";
+import { GrView } from "react-icons/gr";
+import { AiOutlineEdit } from "react-icons/ai";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { Project } from "@/db/schema";
 import {
   Table,
   TableBody,
@@ -7,25 +14,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { format } from "date-fns";
-import { getProjects } from "@/services/project";
-import { Button } from "../ui/button";
-import Link from "next/link";
-import { GrView } from "react-icons/gr";
-import { AiOutlineEdit } from "react-icons/ai";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { GetProjects } from "@/actions/project";
-import { IProjects } from "@/types";
-import { Project } from "@/db/schema";
 
 interface ProjectItem2Props {
   project: Project[];
 }
 
 export default function ProjectsTable({ project }: ProjectItem2Props) {
-  //   const wordCount = project.content?.split(/\s+/).length;
-  //   const projects = getProjects();
-  //   const projectsdb = await GetProjects();
   return (
     <>
       <Table>

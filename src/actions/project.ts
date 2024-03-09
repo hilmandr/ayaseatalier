@@ -10,7 +10,7 @@ export const createProject = async (request: CreateProjectRequest) => {
     .values({
       title: request.title,
       summary: request.summary,
-      content: "",
+      content: request.content,
       thumbnail: request.thumbnail,
       client: request.client,
       date: request.date,

@@ -2,7 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import ProjectItems2 from "../project-item";
-import { getProjects } from "@/services/project";
 import { Element } from "react-scroll";
 import { IProjects } from "@/types";
 import { useI18n } from "@/locales/client";
@@ -29,7 +28,7 @@ export default function HomeProject({ projects }: ProjectItem2Props) {
             </Link>
           </div>
         </div>
-        <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 pt-10 gap-10">
+        <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 pt-5 gap-x-10 gap-y-5">
           {projects?.map((projects, i) => (
             <ProjectItems2 project={projects} key={i} />
           ))}
