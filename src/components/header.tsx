@@ -9,15 +9,23 @@ import { AnimatePresence, Variants, motion } from "framer-motion";
 import { MENU } from "@/lib/constant";
 import { usePathname } from "next/navigation";
 import { useScrollPosition } from "@/hooks/use-scroll-position";
+import { useChangeLocale, useCurrentLocale } from "@/locales/client";
 
 interface HeaderProps {
   className?: string;
 }
 
 export default function Header({ className }: HeaderProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // Locale
+  const changeLocale = useChangeLocale();
+  const currentLocale = useCurrentLocale();
+
+  // Hooks
   const pathname = usePathname();
   const scrollPosition = useScrollPosition();
+
+  // State
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const menuVars: Variants = {
     initial: {
@@ -134,8 +142,24 @@ export default function Header({ className }: HeaderProps) {
             <div className=" flex flex-1">
               <LogoPutih />
             </div>
-            <div className=" pr-5">
-              <h3 className=" text-white cursor-pointer">EN</h3>
+            <div className=" pr-5 flex gap-2.5">
+              <h3
+                className={cn(" text-neutral-500 cursor-pointer", {
+                  "text-white": currentLocale === "en",
+                })}
+                onClick={() => changeLocale("en")}
+              >
+                EN
+              </h3>
+              <span>/</span>
+              <h3
+                className={cn(" text-neutral-500 cursor-pointer", {
+                  "text-white": currentLocale === "id",
+                })}
+                onClick={() => changeLocale("id")}
+              >
+                ID
+              </h3>
             </div>
             <div className=" flex flex-row items-center gap-3 cursor-pointer relative">
               <button
