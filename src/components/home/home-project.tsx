@@ -1,16 +1,15 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import ProjectItems2 from "../project-item";
 import { Element } from "react-scroll";
-import { IProjects } from "@/types";
 import { useI18n } from "@/locales/client";
+import { Project } from "@/db/schema";
 
 interface ProjectItem2Props {
-  projects: IProjects[];
+  project: Project[];
 }
 
-export default function HomeProject({ projects }: ProjectItem2Props) {
+export default function HomeProject({ project }: ProjectItem2Props) {
   const t = useI18n();
   return (
     <>
@@ -29,8 +28,29 @@ export default function HomeProject({ projects }: ProjectItem2Props) {
           </div>
         </div>
         <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 pt-5 gap-x-10 gap-y-5">
-          {projects?.map((projects, i) => (
-            <ProjectItems2 project={projects} key={i} />
+          {project?.map((projects, i) => (
+            <Link
+              href={`/projects/${projects.slug}`}
+              className=" flex flex-col"
+              key={i}
+            >
+              <div className=" flex flex-col group">
+                <div className="flex w-full aspect-video relative overflow-hidden">
+                  {/* <Image
+                  src={project.thumbnail as string}
+                  fill
+                  alt=""
+                  className="object-cover transform transition-all scale-110 group-hover:scale-100 duration-500 visible object-center"
+                ></Image> */}
+                </div>
+                <div className=" flex flex-col text-center p-3">
+                  <h3 className=" font-bold">{projects?.title}</h3>
+                  <h4 className=" font-light tracking-widest text-xs">
+                    {projects?.place}
+                  </h4>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </Element>

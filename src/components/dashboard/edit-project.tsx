@@ -1,20 +1,11 @@
 "use client";
-
 import React, { forwardRef, useCallback } from "react";
-import ContentEditor from "./froala-editor";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { createProject } from "@/actions/project";
-import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
-import { EditorProps } from "react-draft-wysiwyg";
-import { useDropzone } from "react-dropzone";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
+import ContentEditor from "@/components/dashboard/froala-editor";
+import { GetProjectBySlug, createProject } from "@/actions/project";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -29,16 +20,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 import {
   CreateProjectRequest,
   createProjectRequest,
 } from "@/lib/validations/project.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { useDropzone } from "react-dropzone";
+import { format } from "date-fns";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
+import { Project, project } from "@/db/schema";
 
-export default forwardRef<Object, EditorProps>(function RichTextEditor(
-  props,
-  ref
-) {
+interface PageParams {
+  project: Project;
+}
+export default function EditProjectForm({ project }: PageParams) {
   const form = useForm<CreateProjectRequest>({
     resolver: zodResolver(createProjectRequest),
     defaultValues: {
@@ -48,7 +46,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
       content: "",
       date: new Date(),
       summary: "",
-      thumbnail: "",
+      thumbnail: "Thumbnail",
     },
   });
 
@@ -83,7 +81,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     <FormItem>
                       <FormLabel>Project&apos;s Title</FormLabel>
                       <FormControl>
-                        <Input placeholder="Project's Title" {...field} />
+                        <Input value={project.title} />
                       </FormControl>
                       <FormDescription>
                         This is the title of your project&apos;s.
@@ -99,7 +97,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     <FormItem>
                       <FormLabel>Project&apos;s Place</FormLabel>
                       <FormControl>
-                        <Input placeholder="Project's Place" {...field} />
+                        <Input value={project.place} />
                       </FormControl>
                       <FormDescription>
                         This is the location of your project&apos;s.
@@ -115,7 +113,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     <FormItem>
                       <FormLabel>Project&apos;s Client</FormLabel>
                       <FormControl>
-                        <Input placeholder="Project's Client" {...field} />
+                        <Input value={project.client} />
                       </FormControl>
                       <FormDescription>
                         This is the client&apos;s name of your project&apos;s.
@@ -175,11 +173,7 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     <FormItem>
                       <FormLabel>Project&apos;s Summary</FormLabel>
                       <FormControl className=" h-16">
-                        <Textarea
-                          placeholder="Type your summary here."
-                          id="message-2"
-                          {...field}
-                        />
+                        <Textarea value={project.summary} id="message-2" />
                       </FormControl>
                       <FormDescription>
                         This is the summary of your project&apos;s.
@@ -201,11 +195,10 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                         >
                           <Input {...getInputProps()} />
                           {isDragActive ? (
-                            <p>{}</p>
+                            <p>Drop the files here ...</p>
                           ) : (
                             <p className=" text-zinc-500">
-                              Drag or drop image files here, or click to select
-                              files
+                              {project.thumbnail}
                             </p>
                           )}
                         </div>
@@ -224,14 +217,15 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                 name="content"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Project&apos;s Detail</FormLabel>
+                    <FormLabel>Project&apos;s Client</FormLabel>
                     <FormControl>
                       <ContentEditor
+                        value={project.content}
                         setValue={(value) => form.setValue("content", value)}
                       />
                     </FormControl>
                     <FormDescription>
-                      This is the detail&apos;s of your project&apos;s.
+                      This is the client&apos;s name of your project&apos;s.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -245,4 +239,4 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
       </div>
     </>
   );
-});
+}

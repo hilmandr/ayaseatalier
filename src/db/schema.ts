@@ -3,6 +3,7 @@ import { pgTable, timestamp, uuid, varchar, serial } from "drizzle-orm/pg-core";
 
 export const project = pgTable("project", {
   id: uuid("id").defaultRandom().primaryKey(),
+  slug: varchar("slug").notNull(),
   title: varchar("title").notNull(),
   place: varchar("place").notNull(),
   client: varchar("client").notNull(),

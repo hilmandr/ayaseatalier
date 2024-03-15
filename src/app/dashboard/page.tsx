@@ -1,12 +1,10 @@
 import Image from "next/image";
-import { getProjects } from "@/services/project";
 import Container from "@/components/container";
 import Header from "@/components/dashboard/header";
 import { englebert } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const projects = getProjects();
   return (
     <>
       <div className=" flex w-full h-full bg-white text-sm">

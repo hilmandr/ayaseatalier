@@ -15,11 +15,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface ProjectItem2Props {
+interface ProjectItemProps {
   project: Project[];
 }
 
-export default function ProjectsTable({ project }: ProjectItem2Props) {
+export default function ProjectsTable({ project }: ProjectItemProps) {
   return (
     <>
       <Table>
@@ -51,12 +51,12 @@ export default function ProjectsTable({ project }: ProjectItem2Props) {
                 <TableCell>
                   <div className=" flex">
                     <Button asChild className=" h-8" variant="ghost">
-                      <Link href="">
+                      <Link href={`/dashboard/projects/${project.slug}`}>
                         <GrView size={16} />
                       </Link>
                     </Button>
                     <Button asChild className=" h-8" variant="ghost">
-                      <Link href="">
+                      <Link href={`/dashboard/projects/edit/${project.slug}`}>
                         <AiOutlineEdit size={16} />
                       </Link>
                     </Button>

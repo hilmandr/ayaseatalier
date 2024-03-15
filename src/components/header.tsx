@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import Container from "./container";
 import { useState } from "react";
@@ -22,6 +22,11 @@ export default function Header({ className }: HeaderProps) {
 
   // Hooks
   const pathname = usePathname();
+  const actualPathName = useMemo<string>(() => {
+    const arrPathname = pathname.split("/");
+    arrPathname.splice(0, 2);
+    return `/${arrPathname.join("/")}`;
+  }, [pathname]);
   const scrollPosition = useScrollPosition();
 
   // State
@@ -90,7 +95,8 @@ export default function Header({ className }: HeaderProps) {
         className={cn(
           "  w-full z-50 bg-transparent text-white fixed items-center transition-all transform duration-500",
           {
-            "bg-black transition-all transform duration-500": pathname == "/",
+            "bg-black transition-all transform duration-500":
+              actualPathName !== "/",
           },
           {
             "bg-black transition-all transform duration-500":

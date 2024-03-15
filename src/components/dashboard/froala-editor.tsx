@@ -28,6 +28,7 @@ const ContentEditor = ({ value, setValue }: FroalaEditorProps) => {
           onModelChange={setValue}
           config={{
             placeholderText: "Write your project here...",
+
             events: {
               "image.beforeUpload": function (files: any) {
                 var editor = this;

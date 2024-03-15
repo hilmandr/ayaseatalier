@@ -1,12 +1,17 @@
 import Image from "next/image";
-import { getProjects } from "@/services/project";
 import Container from "@/components/container";
 import Hero from "@/components/home/hero";
 import HomeProject from "@/components/home/home-project";
 import HomeContact from "@/components/home/home-contact";
+import { Project } from "@/db/schema";
+import { GetProjects } from "@/actions/project";
 
-export default function Home() {
-  const projects = getProjects();
+interface ProjectItem2Props {
+  project: Project[];
+}
+
+export default async function Home({ project }: ProjectItem2Props) {
+  const projects = await GetProjects();
   return (
     <>
       <Hero />
@@ -32,7 +37,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <HomeProject projects={projects} />
+        <HomeProject project={projects} />
         <HomeContact />
       </Container>
     </>

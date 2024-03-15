@@ -1,17 +1,15 @@
-import { getProjects, getProjectsBySlug } from "@/services/project";
 import Container from "@/components/container";
-import ProjectItems2 from "@/components/project-item";
 import Link from "next/link";
 import { Metadata } from "next";
 import { RxCaretRight } from "react-icons/rx";
+import { GetProjects } from "@/actions/project";
 
 export const metadata: Metadata = {
   title: "Projects - Ayase Atalier",
 };
 
-export default function ProjectItemPage() {
-  const projects = getProjects();
-
+export default async function ProjectItemPage() {
+  const projects = await GetProjects();
   return (
     <>
       <Container>
@@ -22,9 +20,30 @@ export default function ProjectItemPage() {
           <RxCaretRight />
           <p className=" cursor-default">Projects</p>
         </div>
-        <div className=" flex grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 py-10 gap-10">
-          {projects.map((projects, i) => (
-            <ProjectItems2 project={projects} key={i} />
+        <div className=" grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 py-10 gap-10">
+          {projects?.map((project, i) => (
+            <Link
+              href={`/projects/${project?.slug}`}
+              className=" flex flex-col"
+              key={i}
+            >
+              <div className=" flex flex-col group">
+                <div className="flex w-full aspect-video relative overflow-hidden">
+                  {/* <Image
+                  src={project.thumbnail as string}
+                  fill
+                  alt=""
+                  className="object-cover transform transition-all scale-110 group-hover:scale-100 duration-500 visible object-center"
+                ></Image> */}
+                </div>
+                <div className=" flex flex-col text-center p-3">
+                  <h3 className=" font-bold">{project?.title}</h3>
+                  <h4 className=" font-light tracking-widest text-xs">
+                    {project?.place}
+                  </h4>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </Container>
