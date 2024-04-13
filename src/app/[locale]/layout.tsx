@@ -2,7 +2,6 @@
 
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { usePathname } from "next/navigation";
 import Providers from "@/components/providers";
 
 export default function MainLayout({
@@ -10,7 +9,6 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
   return (
     <Providers>
       <Header />

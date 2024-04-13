@@ -5,10 +5,10 @@ import ProjectsTableDb from "@/components/dashboard/project-table";
 import { Button } from "@/components/ui/button";
 import { IoIosAddCircle } from "react-icons/io";
 import { Input } from "@/components/ui/input";
-import { GetProjects } from "@/actions/project";
+import { getProjects } from "@/actions/project";
 
 export default async function InputProjectPage() {
-  const projects = await GetProjects();
+  const projects = await getProjects();
   return (
     <>
       <div className=" flex w-full h-full bg-white text-sm">
@@ -27,9 +27,6 @@ export default async function InputProjectPage() {
                     </Link>
                   </Button>
                 </div>
-              </div>
-              <div className=" flex w-80">
-                <Input type="text" placeholder="Search" />
               </div>
             </div>
             <div className=" pt-4">

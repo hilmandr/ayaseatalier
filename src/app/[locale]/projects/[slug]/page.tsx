@@ -1,20 +1,25 @@
-import { GetProjectBySlug } from "@/actions/project";
-import React from "react";
+import { getProjectBySlug } from "@/actions/project";
 import ViewProject from "@/components/view-project";
+import { Metadata } from "next";
+
 interface PageParams {
   params: {
     slug: string;
   };
 }
 
-export default async function ProjectPage({ params }: PageParams) {
-  const project = await GetProjectBySlug(params.slug);
+export const generateMetadata = async ({
+  params,
+}: PageParams): Promise<Metadata> => {
+  const post = await getProjectBySlug(params.slug);
+  return {
+    title: post.title + " - Ayaase Atalier",
+    description: post.summary,
+  };
+};
 
-  return (
-    <>
-      <div>
-        <ViewProject project={project} />
-      </div>
-    </>
-  );
+export default async function ProjectBySlugPage({ params }: PageParams) {
+  const project = await getProjectBySlug(params.slug);
+
+  return <ViewProject project={project} />;
 }

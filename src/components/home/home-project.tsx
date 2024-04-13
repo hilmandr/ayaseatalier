@@ -4,6 +4,8 @@ import Link from "next/link";
 import { Element } from "react-scroll";
 import { useI18n } from "@/locales/client";
 import { Project } from "@/db/schema";
+import { Image } from "@nextui-org/react";
+import { GalleryRemove } from "iconsax-react";
 
 interface ProjectItem2Props {
   project: Project[];
@@ -35,14 +37,23 @@ export default function HomeProject({ project }: ProjectItem2Props) {
               key={i}
             >
               <div className=" flex flex-col group">
-                <div className="flex w-full aspect-video relative overflow-hidden">
-                  {/* <Image
-                  src={project.thumbnail as string}
-                  fill
-                  alt=""
-                  className="object-cover transform transition-all scale-110 group-hover:scale-100 duration-500 visible object-center"
-                ></Image> */}
-                </div>
+                {projects.thumbnail == "" ? (
+                  <div className="flex w-full justify-center items-center aspect-video relative overflow-hidden bg-gray-100">
+                    <GalleryRemove
+                      size={100}
+                      className=" text-gray-400/75 transform transition-all scale-110 group-hover:scale-100 duration-500"
+                      variant="Bold"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex w-full aspect-video relative overflow-hidden">
+                    <Image
+                      src={projects.thumbnail as string}
+                      alt=""
+                      className="object-cover transform transition-all scale-110 group-hover:scale-100 duration-500 visible object-center"
+                    ></Image>
+                  </div>
+                )}
                 <div className=" flex flex-col text-center p-3">
                   <h3 className=" font-bold">{projects?.title}</h3>
                   <h4 className=" font-light tracking-widest text-xs">

@@ -2,20 +2,15 @@
 
 import { db } from "@/db";
 import { Project, project } from "@/db/schema";
+import { slugify } from "@/lib/utils";
 import { CreateProjectRequest } from "@/lib/validations/project.validation";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
-export const createProject = async (request: CreateProjectRequest) => {
-  function slugify(str: string) {
-    str = str.replace(/^\s+|\s+$/g, ""); // trim leading/trailing white space
-    str = str.toLowerCase(); // convert string to lowercase
-    str = str
-      .replace(/[^a-z0-9 -]/g, "") // remove any non-alphanumeric characters
-      .replace(/\s+/g, "-") // replace spaces with hyphens
-      .replace(/-+/g, "-"); // remove consecutive hyphens
-    return str;
-  }
-
+export const createProject = async (
+  request: CreateProjectRequest,
+  thumbnail: string
+) => {
   const newProject = await db
     .insert(project)
     .values({
@@ -23,26 +18,56 @@ export const createProject = async (request: CreateProjectRequest) => {
       title: request.title,
       summary: request.summary,
       content: request.content,
-      thumbnail: request.thumbnail,
       client: request.client,
       date: request.date,
       place: request.place,
+      thumbnail,
     })
     .returning();
+
+  revalidatePath("/dashboard/projects");
 
   return newProject;
 };
 
-export const GetProjects = async (): Promise<Project[]> => {
+export const getProjects = async (): Promise<Project[]> => {
   const projects = await db.query.project.findMany();
 
   return projects;
 };
 
-export const GetProjectBySlug = async (slug: string): Promise<Project> => {
+export const getProjectBySlug = async (slug: string): Promise<Project> => {
   const slugProject: any = await db.query.project.findFirst({
     where: eq(project.slug, slug),
   });
 
   return slugProject;
+};
+
+export const deleteProjectById = async (id: string): Promise<Project> => {
+  const idProject: any = await db.delete(project).where(eq(project.id, id));
+  revalidatePath("/dashboard/projects");
+  return idProject;
+};
+
+export const editProjectById = async (
+  request: CreateProjectRequest,
+  thumbnail: string,
+  id: string
+) => {
+  const editProject = await db
+    .update(project)
+    .set({
+      title: request.title,
+      summary: request.summary,
+      content: request.content,
+      client: request.client,
+      date: request.date,
+      place: request.place,
+      thumbnail,
+    })
+    .where(eq(project.id, id));
+  revalidatePath("/dashboard/projects");
+
+  return editProject;
 };

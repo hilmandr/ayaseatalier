@@ -10,5 +10,4 @@ export interface IMenuDashboard {
   label: string;
   path: string;
   icon: IconType | Icon;
-  // active: string;
 }

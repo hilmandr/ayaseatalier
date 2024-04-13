@@ -28,7 +28,6 @@ const ContentEditor = ({ value, setValue }: FroalaEditorProps) => {
           onModelChange={setValue}
           config={{
             placeholderText: "Write your project here...",
-
             events: {
               "image.beforeUpload": function (files: any) {
                 var editor = this;
@@ -36,13 +35,17 @@ const ContentEditor = ({ value, setValue }: FroalaEditorProps) => {
                   // Create a File Reader.
                   var reader = new FileReader();
                   // Set the reader to insert images when they are loaded.
+
                   reader.onload = function (e) {
+                    // @ts-ignore
                     var result = e.target.result;
+                    // @ts-ignore
                     editor.image.insert(result, null, null, editor.image.get());
                   };
                   // Read image as base64.
                   reader.readAsDataURL(files[0]);
                 }
+                // @ts-ignore
                 editor.popups.hideAll();
                 // Stop default upload chain.
                 return false;

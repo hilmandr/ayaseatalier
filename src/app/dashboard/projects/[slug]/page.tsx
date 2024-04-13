@@ -1,5 +1,4 @@
-import { GetProjectBySlug } from "@/actions/project";
-import React, { useState } from "react";
+import { getProjectBySlug } from "@/actions/project";
 import ViewProject from "@/components/dashboard/view-project";
 
 interface PageParams {
@@ -8,13 +7,7 @@ interface PageParams {
   };
 }
 export default async function View({ params }: PageParams) {
-  const project = await GetProjectBySlug(params.slug);
+  const project = await getProjectBySlug(params.slug);
 
-  return (
-    <>
-      <div>
-        <ViewProject project={project} />
-      </div>
-    </>
-  );
+  return <ViewProject project={project} />;
 }

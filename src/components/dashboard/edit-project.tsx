@@ -1,11 +1,6 @@
 "use client";
-import React, { forwardRef, useCallback } from "react";
-import ContentEditor from "@/components/dashboard/froala-editor";
-import { GetProjectBySlug, createProject } from "@/actions/project";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Textarea } from "@/components/ui/textarea";
+
+import { createProject, editProjectById } from "@/actions/project";
 import {
   Form,
   FormControl,
@@ -20,19 +15,30 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import {
   CreateProjectRequest,
   createProjectRequest,
 } from "@/lib/validations/project.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import axios from "axios";
+import { format } from "date-fns";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useDropzone } from "react-dropzone";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useDropzone } from "react-dropzone";
-import { format } from "date-fns";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { cn } from "@/lib/utils";
-import { Project, project } from "@/db/schema";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import ContentEditor from "./froala-editor";
+import { Label } from "../ui/label";
 
+import { Project } from "@/db/schema";
 interface PageParams {
   project: Project;
 }
@@ -46,27 +52,69 @@ export default function EditProjectForm({ project }: PageParams) {
       content: "",
       date: new Date(),
       summary: "",
-      thumbnail: "Thumbnail",
     },
   });
+
+  const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<CreateProjectRequest> = useCallback(
     async (data) => {
-      const res = await createProject(data);
-      console.log(data);
-      toast.success("success add project");
-      return res;
+      if (thumbnail) {
+        setLoading(true);
+        console.log(thumbnail);
+        // console.log(data);
+        // return res;
+        const formData = new FormData();
+        formData.append("file", thumbnail!);
+        formData.append("upload_preset", "v7bn49sm");
+
+        const res = await axios.post<{ secure_url: string }>(
+          `https://api.cloudinary.com/v1_1/dbi3iqa9k/image/upload`,
+          formData
+        );
+
+        if (res.status === 200) {
+          const editProject = await editProjectById(
+            data,
+            res.data.secure_url,
+            project.id
+          );
+
+          if (editProject) {
+            form.reset();
+            toast.success("success edit project");
+            setLoading(false);
+            router.push("/dashboard/projects");
+          }
+        }
+      }
     },
-    []
+    [thumbnail, router, form, project]
   );
 
-  const onDrop = useCallback(() => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     // Do something with the files
+    if (acceptedFiles && acceptedFiles[0]) {
+      setThumbnail(acceptedFiles[0]);
+    }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-  });
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles, open } =
+    useDropzone({
+      onDrop,
+      maxFiles: 1,
+    });
+
+  useEffect(() => {
+    form.setValue("title", project.title);
+    form.setValue("place", project.place);
+    form.setValue("client", project.client);
+    form.setValue("content", project.content);
+    form.setValue("date", project.date);
+    form.setValue("summary", project.summary);
+  }, [form, project]);
   return (
     <>
       <div className=" flex-1 pt-5 w-full">
@@ -81,7 +129,7 @@ export default function EditProjectForm({ project }: PageParams) {
                     <FormItem>
                       <FormLabel>Project&apos;s Title</FormLabel>
                       <FormControl>
-                        <Input value={project.title} />
+                        <Input {...field} />
                       </FormControl>
                       <FormDescription>
                         This is the title of your project&apos;s.
@@ -97,7 +145,7 @@ export default function EditProjectForm({ project }: PageParams) {
                     <FormItem>
                       <FormLabel>Project&apos;s Place</FormLabel>
                       <FormControl>
-                        <Input value={project.place} />
+                        <Input {...field} />
                       </FormControl>
                       <FormDescription>
                         This is the location of your project&apos;s.
@@ -113,7 +161,7 @@ export default function EditProjectForm({ project }: PageParams) {
                     <FormItem>
                       <FormLabel>Project&apos;s Client</FormLabel>
                       <FormControl>
-                        <Input value={project.client} />
+                        <Input {...field} />
                       </FormControl>
                       <FormDescription>
                         This is the client&apos;s name of your project&apos;s.
@@ -172,8 +220,8 @@ export default function EditProjectForm({ project }: PageParams) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Project&apos;s Summary</FormLabel>
-                      <FormControl className=" h-16">
-                        <Textarea value={project.summary} id="message-2" />
+                      <FormControl className=" w-full aspect-[2/1]">
+                        <Textarea {...field} id="message-2" />
                       </FormControl>
                       <FormDescription>
                         This is the summary of your project&apos;s.
@@ -182,34 +230,41 @@ export default function EditProjectForm({ project }: PageParams) {
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="thumbnail"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Project&apos;s Thumbnail</FormLabel>
-                      <FormControl>
+                <div className=" space-y-2">
+                  <Label>Project&apos;s Thumbnail</Label>
+
+                  {thumbnail ? (
+                    <>
+                      <div className=" flex flex-col w-full gap-y-1">
                         <div
-                          {...getRootProps()}
-                          className=" flex w-full h-16 border items-center justify-center rounded-lg"
+                          className=" w-full aspect-[2/1] relative rounded-lg overflow-hidden"
+                          onClick={open}
                         >
-                          <Input {...getInputProps()} />
-                          {isDragActive ? (
-                            <p>Drop the files here ...</p>
-                          ) : (
-                            <p className=" text-zinc-500">
-                              {project.thumbnail}
-                            </p>
-                          )}
+                          <Image
+                            src={URL.createObjectURL(thumbnail)}
+                            fill
+                            alt=""
+                            className=" object-center object-cover"
+                          ></Image>
                         </div>
-                      </FormControl>
-                      <FormDescription>
-                        This is the thumbnail of your project&apos;s.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                      </div>
+                    </>
+                  ) : (
+                    <div className=" flex flex-col w-full gap-y-1">
+                      <div
+                        className=" w-full aspect-[2/1] relative rounded-lg overflow-hidden"
+                        onClick={open}
+                      >
+                        <Image
+                          src={project.thumbnail}
+                          fill
+                          alt=""
+                          className=" object-center object-cover"
+                        ></Image>
+                      </div>
+                    </div>
                   )}
-                />
+                </div>
               </div>
 
               <FormField
@@ -220,7 +275,7 @@ export default function EditProjectForm({ project }: PageParams) {
                     <FormLabel>Project&apos;s Client</FormLabel>
                     <FormControl>
                       <ContentEditor
-                        value={project.content}
+                        {...field}
                         setValue={(value) => form.setValue("content", value)}
                       />
                     </FormControl>

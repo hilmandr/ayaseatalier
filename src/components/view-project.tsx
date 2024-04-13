@@ -1,31 +1,14 @@
 "use client";
 
 import Container from "@/components/container";
-import Link from "next/link";
-import { GetProjectBySlug } from "@/actions/project";
-import { Metadata } from "next";
-import { RxCaretRight } from "react-icons/rx";
 import { Project } from "@/db/schema";
-import "froala-editor/css/froala_editor.pkgd.min.css";
-import "froala-editor/css/froala_style.min.css";
-import "froala-editor/js/plugins.pkgd.min.js";
-// import "@fortawesome/fontawesome-free/css/all.min.css";
-import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
-import "froala-editor/js/plugins/image.min.js";
+import { GalleryRemove } from "iconsax-react";
+import Link from "next/link";
+import { RxCaretRight } from "react-icons/rx";
 
 interface PageParams {
   project: Project;
 }
-
-export const generateMetadata = async ({
-  project,
-}: PageParams): Promise<Metadata> => {
-  const post = await GetProjectBySlug(project.slug);
-  return {
-    title: post.title + " - Ayaase Atalier",
-    description: post.summary,
-  };
-};
 
 export default function ViewProject({ project }: PageParams) {
   return (
@@ -45,13 +28,23 @@ export default function ViewProject({ project }: PageParams) {
             </div>
           </div>
         </div>
-        <div
-          className=" bg-cover bg-center w-full h-[700px] z-0 relative"
-          //   style={{ backgroundImage: `url(${project.thumbnail})` }}
-        ></div>
+        {project.thumbnail == "" ? (
+          <div className="flex w-full justify-center items-center h-[700px] relative overflow-hidden bg-gray-100">
+            <GalleryRemove
+              size={100}
+              className=" text-gray-400/75 transform transition-all scale-110 group-hover:scale-100 duration-500"
+              variant="Bold"
+            />
+          </div>
+        ) : (
+          <div
+            className=" bg-cover bg-center w-full h-[700px] z-0 relative"
+            style={{ backgroundImage: `url(${project.thumbnail})` }}
+          ></div>
+        )}
       </div>
       <Container>
-        <div className=" xl:px-[350px] lg:px-48 md:px-32 pt-24 space-y-5">
+        <div className=" xl:px-[350px] lg:px-48 md:px-32 pt-24 space-y-5 pb-7">
           <div className=" flex w-full items-center">
             <Link href="/">
               <p className=" font-bold">Home </p>
@@ -63,7 +56,7 @@ export default function ViewProject({ project }: PageParams) {
             <RxCaretRight />
             <p>{project.title}</p>
           </div>
-          <FroalaEditorView model={project.content} />
+          <div dangerouslySetInnerHTML={{ __html: project.content }} />
         </div>
       </Container>
     </>

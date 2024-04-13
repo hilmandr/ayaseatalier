@@ -1,3 +1,4 @@
+import { log } from "console";
 import { z } from "zod";
 
 export const createProjectRequest = z.object({
@@ -13,9 +14,6 @@ export const createProjectRequest = z.object({
   }),
   date: z.date(),
   summary: z.string().min(1, {
-    message: "Place must be filled.",
-  }),
-  thumbnail: z.string().min(1, {
     message: "Place must be filled.",
   }),
   content: z.string().min(1, {

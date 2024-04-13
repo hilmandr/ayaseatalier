@@ -1,4 +1,4 @@
-import { GetProjectBySlug } from "@/actions/project";
+import { getProjectBySlug } from "@/actions/project";
 import EditProjectForm from "@/components/dashboard/edit-project";
 
 interface PageParams {
@@ -7,7 +7,7 @@ interface PageParams {
   };
 }
 export default async function EditProject({ params }: PageParams) {
-  const project = await GetProjectBySlug(params.slug);
+  const project = await getProjectBySlug(params.slug);
   return (
     <>
       <EditProjectForm project={project} />

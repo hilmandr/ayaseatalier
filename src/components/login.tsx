@@ -1,5 +1,13 @@
 "use client";
-import Container from "./container";
+
+import { Login, login } from "@/lib/validations/login.validation";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useCallback } from "react";
+import { toast } from "sonner";
+import { signIn } from "next-auth/react";
 import {
   Form,
   FormControl,
@@ -8,12 +16,24 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+} from "./ui/form";
 
 export default function Login() {
-  const form = "";
+  const form = useForm<Login>({
+    resolver: zodResolver(login),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
+  const onSubmit: SubmitHandler<Login> = useCallback(async (data) => {
+    signIn("credentials", {
+      username: data.username,
+      password: data.password,
+      callbackUrl: "/dashboard",
+    });
+  }, []);
+
   return (
     <>
       <div className=" grid grid-cols-2 w-full">
@@ -21,36 +41,38 @@ export default function Login() {
           <div className=" flex flex-col w-[45%]">
             <h1 className=" font-bold text-3xl">Welcome Back</h1>
             <p className=" text-sm">Please complete your details to login.</p>
-            {/* <Form>
-                <form>
-                  <div>
-                    <FormField
-                      // control={}
-                      name="username"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Username</FormLabel>
-                          <FormControl>
-                            <Input placeholder=" Username" />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+            <div className=" flex flex-col pt-5 gap-y-3">
+              <Form {...form}>
+                <form action="" onSubmit={form.handleSubmit(onSubmit)}>
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Username" {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Password" {...field} />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <div className=" flex mt-2">
+                    <Button className=" w-full">Login</Button>
                   </div>
                 </form>
-              </Form> */}
-            <div className=" flex flex-col pt-5 gap-y-3">
-              <div className=" flex flex-col gap-1">
-                <label className=" text-sm">Username</label>
-                <Input placeholder=" Username" />
-              </div>
-              <div className=" flex flex-col gap-1">
-                <label className=" text-sm">Password</label>
-                <Input placeholder=" Password" />
-              </div>
-              <div className=" flex mt-2">
-                <Button className=" w-full">Login</Button>
-              </div>
+              </Form>
             </div>
           </div>
         </div>

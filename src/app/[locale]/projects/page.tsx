@@ -2,14 +2,17 @@ import Container from "@/components/container";
 import Link from "next/link";
 import { Metadata } from "next";
 import { RxCaretRight } from "react-icons/rx";
-import { GetProjects } from "@/actions/project";
+import { getProjects } from "@/actions/project";
+// import Image from "next/image";
+import { Image } from "@nextui-org/react";
+import { GalleryRemove } from "iconsax-react";
 
 export const metadata: Metadata = {
   title: "Projects - Ayase Atalier",
 };
 
 export default async function ProjectItemPage() {
-  const projects = await GetProjects();
+  const projects = await getProjects();
   return (
     <>
       <Container>
@@ -28,14 +31,24 @@ export default async function ProjectItemPage() {
               key={i}
             >
               <div className=" flex flex-col group">
-                <div className="flex w-full aspect-video relative overflow-hidden">
-                  {/* <Image
-                  src={project.thumbnail as string}
-                  fill
-                  alt=""
-                  className="object-cover transform transition-all scale-110 group-hover:scale-100 duration-500 visible object-center"
-                ></Image> */}
-                </div>
+                {project.thumbnail == "" ? (
+                  <div className="flex w-full justify-center items-center aspect-video relative overflow-hidden bg-gray-100">
+                    <GalleryRemove
+                      size={100}
+                      className=" text-gray-400/75 transform transition-all scale-110 group-hover:scale-100 duration-500"
+                      variant="Bold"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex w-full aspect-video relative overflow-hidden">
+                    <Image
+                      src={project?.thumbnail as string}
+                      alt=""
+                      className="object-cover transform transition-all scale-110 group-hover:scale-100 duration-500 visible object-center"
+                    ></Image>
+                  </div>
+                )}
+
                 <div className=" flex flex-col text-center p-3">
                   <h3 className=" font-bold">{project?.title}</h3>
                   <h4 className=" font-light tracking-widest text-xs">

@@ -1,20 +1,6 @@
 "use client";
 
-import React, { forwardRef, useCallback } from "react";
-import ContentEditor from "./froala-editor";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { createProject } from "@/actions/project";
-import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
-import { EditorProps } from "react-draft-wysiwyg";
-import { useDropzone } from "react-dropzone";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -34,6 +20,24 @@ import {
   CreateProjectRequest,
   createProjectRequest,
 } from "@/lib/validations/project.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import axios from "axios";
+import { format } from "date-fns";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { forwardRef, useCallback, useState } from "react";
+import { EditorProps } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { useDropzone } from "react-dropzone";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
+import ContentEditor from "./froala-editor";
+import { Label } from "../ui/label";
 
 export default forwardRef<Object, EditorProps>(function RichTextEditor(
   props,
@@ -42,37 +46,65 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
   const form = useForm<CreateProjectRequest>({
     resolver: zodResolver(createProjectRequest),
     defaultValues: {
-      title: "",
-      place: "",
-      client: "",
-      content: "",
+      title: "judul",
+      place: "tempat",
+      client: "client",
+      content: "content",
       date: new Date(),
-      summary: "",
-      thumbnail: "",
+      summary: "summary",
     },
   });
 
-  const onSubmit: SubmitHandler<CreateProjectRequest> = useCallback(
-    async (data) => {
-      const res = await createProject(data);
-      console.log(data);
-      toast.success("success add project");
-      return res;
-    },
-    []
-  );
+  const [thumbnail, setThumbnail] = useState<File | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
-  const onDrop = useCallback(() => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     // Do something with the files
+    if (acceptedFiles && acceptedFiles[0]) {
+      setThumbnail(acceptedFiles[0]);
+    }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-  });
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles, open } =
+    useDropzone({
+      onDrop,
+      maxFiles: 1,
+    });
+  const onSubmit: SubmitHandler<CreateProjectRequest> = useCallback(
+    async (data) => {
+      if (thumbnail) {
+        setLoading(true);
+        console.log(thumbnail);
+        const formData = new FormData();
+        formData.append("file", thumbnail!);
+        formData.append("upload_preset", "v7bn49sm");
+
+        const res = await axios.post<{ secure_url: string }>(
+          `https://api.cloudinary.com/v1_1/dbi3iqa9k/image/upload`,
+          formData
+        );
+
+        if (res.status === 200) {
+          const newProject = await createProject(data, res.data.secure_url);
+
+          if (newProject) {
+            form.reset();
+            toast.success("success add project");
+            setLoading(false);
+            router.push("/dashboard/projects");
+          }
+        }
+      }
+    },
+    [thumbnail, router, form]
+  );
+
   return (
     <>
       <div className=" flex-1 pt-5 w-full">
         <div className=" flex-1 w-full px-6 pb-6 border border-slate-200 rounded-lg">
+          {thumbnail?.name}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <div className=" grid grid-cols-2 w-full gap-6 py-4">
@@ -128,11 +160,11 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                   control={form.control}
                   name="date"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem className=" flex flex-col gap-y-1 mt-[2px]">
                       <FormLabel>Project&apos;s Date</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
+                      <FormControl>
+                        <Popover>
+                          <PopoverTrigger asChild>
                             <Button
                               variant={"outline"}
                               className={cn(
@@ -147,20 +179,21 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                               )}
                               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                             </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            mode="single"
-                            // selected={field.value}
-                            onSelect={field.onChange}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
-                            initialFocus
-                          />
-                        </PopoverContent>
-                      </Popover>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0" align="start">
+                            <Calendar
+                              mode="single"
+                              // selected={field.value}
+                              onSelect={field.onChange}
+                              disabled={(date) =>
+                                date > new Date() ||
+                                date < new Date("1900-01-01")
+                              }
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </FormControl>
                       <FormDescription>
                         This is the completion date of your project&apos;s.
                       </FormDescription>
@@ -174,11 +207,12 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Project&apos;s Summary</FormLabel>
-                      <FormControl className=" h-16">
+                      <FormControl className=" w-full aspect-[2/1]">
                         <Textarea
                           placeholder="Type your summary here."
                           id="message-2"
                           {...field}
+                          maxLength={255}
                         />
                       </FormControl>
                       <FormDescription>
@@ -188,35 +222,45 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="thumbnail"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Project&apos;s Thumbnail</FormLabel>
-                      <FormControl>
+
+                <div className=" space-y-2">
+                  <Label>Project&apos;s Thumbnail</Label>
+
+                  {thumbnail ? (
+                    <>
+                      <div className=" flex flex-col w-full gap-y-1">
                         <div
-                          {...getRootProps()}
-                          className=" flex w-full h-16 border items-center justify-center rounded-lg"
+                          className=" w-full aspect-[2/1] relative rounded-lg overflow-hidden"
+                          onClick={open}
                         >
-                          <Input {...getInputProps()} />
-                          {isDragActive ? (
-                            <p>{}</p>
-                          ) : (
-                            <p className=" text-zinc-500">
-                              Drag or drop image files here, or click to select
-                              files
-                            </p>
-                          )}
+                          <Image
+                            src={URL.createObjectURL(thumbnail)}
+                            fill
+                            alt=""
+                            className=" object-center object-cover"
+                          ></Image>
                         </div>
-                      </FormControl>
-                      <FormDescription>
-                        This is the thumbnail of your project&apos;s.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
+                      </div>
+                    </>
+                  ) : (
+                    <div
+                      {...getRootProps({
+                        className:
+                          "dropzone flex w-full aspect-[2/1] border items-center justify-center rounded-lg",
+                      })}
+                    >
+                      <input {...getInputProps()} />
+                      {isDragActive ? (
+                        <p>{}</p>
+                      ) : (
+                        <p className=" text-zinc-500">
+                          Drag or drop image files here, or click to select
+                          files
+                        </p>
+                      )}
+                    </div>
                   )}
-                />
+                </div>
               </div>
 
               <FormField
@@ -238,7 +282,9 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                 )}
               />
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? "...." : "Submit"}
+              </Button>
             </form>
           </Form>
         </div>
