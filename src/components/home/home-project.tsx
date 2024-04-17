@@ -30,7 +30,7 @@ export default function HomeProject({ project }: ProjectItem2Props) {
           </div>
         </div>
         <div className="  grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 pt-5 gap-x-10 gap-y-5">
-          {project?.map((projects, i) => (
+          {project?.slice(0, 6).map((projects, i) => (
             <Link
               href={`/projects/${projects.slug}`}
               className=" flex flex-col"

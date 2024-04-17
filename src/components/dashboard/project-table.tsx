@@ -9,8 +9,8 @@ import { Project } from "@/db/schema";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -29,12 +29,15 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 
 interface ProjectItemProps {
   project: Project[];
 }
 
 export default function ProjectsTable({ project }: ProjectItemProps) {
+  const route = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | undefined>(
     undefined
   );
@@ -43,12 +46,15 @@ export default function ProjectsTable({ project }: ProjectItemProps) {
     setShowDialog((prev) => !prev);
     setSelectedProject(project);
   };
+
   const handleDelete = () => {
     if (selectedProject) {
       deleteProjectById(selectedProject.id);
-      toast.success("Project berhasil dihapus");
+      toast.success("Project Was Deleted!");
       setShowDialog((prev) => !prev);
       setSelectedProject(undefined);
+
+      route.push("/ad");
     }
   };
   const [listProject, setlistProject] = useState(project);
@@ -67,67 +73,84 @@ export default function ProjectsTable({ project }: ProjectItemProps) {
 
     setsearchProject(e.target.value);
   };
+
   return (
     <>
-      <div className=" flex w-80">
+      <div className=" flex w-80 my-5">
         <Input
           type="text"
-          placeholder="Search"
+          placeholder="Search Project.."
           value={searchProject}
           onChange={handleSearchProject}
         />
       </div>
+
       <div className=" border rounded-lg overflow-hidden">
         <Table className="">
-          <TableCaption></TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>No</TableHead>
-              <TableHead className="">Projects</TableHead>
+              <TableHead>Project Title</TableHead>
               <TableHead>Place</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="">Client</TableHead>
-              <TableHead className="">Actions</TableHead>
+              <TableHead>Date Published</TableHead>
+              <TableHead>Client</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {listProject.map((project, i) => (
-              <>
+          {listProject.length === 0 ? (
+            <>
+              <TableFooter>
                 <TableRow>
-                  <TableCell>{i + 1}</TableCell>
-                  <TableCell>{project?.title}</TableCell>
-                  <TableCell>{project?.place}</TableCell>
-                  <TableCell>
-                    {format(
-                      project?.date ? new Date(project?.date) : new Date(),
-                      "dd MMM, yyyy"
-                    )}
-                  </TableCell>
-                  <TableCell>{project?.client}</TableCell>
-                  <TableCell>
-                    <div className=" flex">
-                      <Button asChild className=" h-8" variant="ghost">
-                        <Link href={`/projects/${project.slug}`}>
-                          <GrView size={16} />
-                        </Link>
-                      </Button>
-                      <Button asChild className=" h-8" variant="ghost">
-                        <Link href={`/dashboard/projects/edit/${project.slug}`}>
-                          <AiOutlineEdit size={16} />
-                        </Link>
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        onClick={() => handleShowDialog(project)}
-                      >
-                        <FaRegTrashAlt fill="red" size={16} />
-                      </Button>
-                    </div>
+                  <TableCell colSpan={6} className=" text-center">
+                    There is nothing to show. Please add some project.
                   </TableCell>
                 </TableRow>
-              </>
-            ))}
-          </TableBody>
+              </TableFooter>
+            </>
+          ) : (
+            <>
+              <TableBody>
+                {listProject.map((project, i) => (
+                  <>
+                    <TableRow>
+                      <TableCell>{i + 1}</TableCell>
+                      <TableCell>{project?.title}</TableCell>
+                      <TableCell>{project?.place}</TableCell>
+                      <TableCell>
+                        {format(
+                          project?.date ? new Date(project?.date) : new Date(),
+                          "dd MMM, yyyy"
+                        )}
+                      </TableCell>
+                      <TableCell>{project?.client}</TableCell>
+                      <TableCell>
+                        <div className=" flex">
+                          <Button asChild className=" h-8" variant="ghost">
+                            <Link href={`/projects/${project.slug}`}>
+                              <GrView size={16} />
+                            </Link>
+                          </Button>
+                          <Button asChild className=" h-8" variant="ghost">
+                            <Link
+                              href={`/dashboard/projects/edit/${project.slug}`}
+                            >
+                              <AiOutlineEdit size={16} />
+                            </Link>
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleShowDialog(project)}
+                          >
+                            <FaRegTrashAlt fill="red" size={16} />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </>
+                ))}
+              </TableBody>
+            </>
+          )}
         </Table>
       </div>
 
@@ -146,7 +169,7 @@ export default function ProjectsTable({ project }: ProjectItemProps) {
               onClick={handleDelete}
               variant={"destructive"}
             >
-              <Link href="">Ya</Link>
+              <span>Ya</span>
             </Button>
             <DialogClose asChild>
               <Button>Tidak</Button>

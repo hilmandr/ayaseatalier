@@ -8,11 +8,6 @@ const Footer = () => {
   return (
     <>
       <div className=" flex items-center bg-black w-full text-white text-base overflow-hidden">
-        {/* <div className=" relative -right-[100px] sm:-right-[600px]">
-          <p className=" flex w-full font-normal text-[120pt] opacity-20 whitespace-nowrap absolute select-none">
-            Ayase Atalier
-          </p>
-        </div> */}
         <Container>
           <div className=" flex gap-10 py-14 w-full">
             <div className=" flex flex-col gap-2">

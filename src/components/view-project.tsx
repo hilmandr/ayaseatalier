@@ -5,6 +5,14 @@ import { Project } from "@/db/schema";
 import { GalleryRemove } from "iconsax-react";
 import Link from "next/link";
 import { RxCaretRight } from "react-icons/rx";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./ui/breadcrumb";
 
 interface PageParams {
   project: Project;
@@ -45,17 +53,21 @@ export default function ViewProject({ project }: PageParams) {
       </div>
       <Container>
         <div className=" xl:px-[350px] lg:px-48 md:px-32 pt-24 space-y-5 pb-7">
-          <div className=" flex w-full items-center">
-            <Link href="/">
-              <p className=" font-bold">Home </p>
-            </Link>
-            <RxCaretRight />
-            <Link href="/projects">
-              <p className=" font-bold">Projects</p>
-            </Link>
-            <RxCaretRight />
-            <p>{project.title}</p>
-          </div>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/components">Projects</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{project.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <div dangerouslySetInnerHTML={{ __html: project.content }} />
         </div>
       </Container>

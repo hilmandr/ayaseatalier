@@ -24,7 +24,6 @@ export const createProject = async (
       thumbnail,
     })
     .returning();
-
   revalidatePath("/dashboard/projects");
 
   return newProject;
@@ -45,9 +44,12 @@ export const getProjectBySlug = async (slug: string): Promise<Project> => {
 };
 
 export const deleteProjectById = async (id: string): Promise<Project> => {
-  const idProject: any = await db.delete(project).where(eq(project.id, id));
-  revalidatePath("/dashboard/projects");
-  return idProject;
+  const deleteProject: any = await db
+    .delete(project)
+    .where(eq(project.id, id))
+    .returning();
+  revalidatePath("/dashboard/kegiatan-berita");
+  return deleteProject;
 };
 
 export const editProjectById = async (

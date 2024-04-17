@@ -38,6 +38,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import ContentEditor from "./froala-editor";
 import { Label } from "../ui/label";
+import { Loader2 } from "lucide-react";
 
 export default forwardRef<Object, EditorProps>(function RichTextEditor(
   props,
@@ -87,10 +88,9 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
 
         if (res.status === 200) {
           const newProject = await createProject(data, res.data.secure_url);
-
           if (newProject) {
             form.reset();
-            toast.success("success add project");
+            toast.success("Add Project Success!");
             setLoading(false);
             router.push("/dashboard/projects");
           }
@@ -282,9 +282,14 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
                 )}
               />
 
-              <Button type="submit" disabled={loading}>
-                {loading ? "...." : "Submit"}
-              </Button>
+              {loading ? (
+                <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
+                </Button>
+              ) : (
+                <Button type="submit">Submit</Button>
+              )}
             </form>
           </Form>
         </div>

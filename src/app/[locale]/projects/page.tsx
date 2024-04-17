@@ -6,6 +6,14 @@ import { getProjects } from "@/actions/project";
 // import Image from "next/image";
 import { Image } from "@nextui-org/react";
 import { GalleryRemove } from "iconsax-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Projects - Ayase Atalier",
@@ -17,11 +25,17 @@ export default async function ProjectItemPage() {
     <>
       <Container>
         <div className=" flex pt-32 w-full items-center">
-          <Link href="/">
-            <p className=" font-bold">Home </p>
-          </Link>
-          <RxCaretRight />
-          <p className=" cursor-default">Projects</p>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Projects</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
         <div className=" grid lg:grid-cols-3 grid-cols-1 md:grid-cols-2 py-10 gap-10">
           {projects?.map((project, i) => (
