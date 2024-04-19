@@ -15,3 +15,15 @@ export const project = pgTable("project", {
 
 export type Project = InferSelectModel<typeof project>;
 export type NewProject = InferInsertModel<typeof project>;
+
+export const message = pgTable("message", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  // slug: varchar("slug").notNull(),
+  name: varchar("name").notNull(),
+  email: varchar("email").notNull(),
+  message: varchar("message").notNull(),
+  time: timestamp("time").notNull(),
+});
+
+export type Message = InferSelectModel<typeof message>;
+export type NewMessage = InferInsertModel<typeof message>;

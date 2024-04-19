@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoHitam } from "../logo";
+import { LogoHitamDashboard } from "../logo";
 import { MENU_DASHBOARD } from "@/lib/constant";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ export default function SideNav() {
     <>
       <div className=" flex flex-col fixed w-[286px] min-h-screen bg-slate-50 overflow-hidden z-20">
         <div className=" flex w-full h-24 items-center justify-center ">
-          <LogoHitam />
+          <LogoHitamDashboard />
         </div>
         <div className=" flex flex-col pr-4 py-4 text-stone-900 gap-2">
           {MENU_DASHBOARD.map((menu, i) => (
@@ -33,7 +33,6 @@ export default function SideNav() {
           ))}
         </div>
       </div>
-      {/* <div className=" flex w-full h-16 bg-slate-400 fixed z-10"></div> */}
     </>
   );
 }

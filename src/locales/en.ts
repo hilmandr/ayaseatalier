@@ -33,6 +33,7 @@ export default {
       "Engage with Me: Feel Free to Get in Touch – I'm Excited to Connect with You!",
     labelName: "What's your name?",
     labelEmail: "Email",
+    labelMessage: "Message",
     button: "Send",
   },
 } as const;

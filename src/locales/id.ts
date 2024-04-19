@@ -32,6 +32,7 @@ export default {
     postTitle: "Libatkan kami: tetaplah terhubung bersama kami - Kami sangat ",
     labelName: "Nama",
     labelEmail: "Email",
+    labelMessage: "Pesan",
     button: "Kirim",
   },
 } as const;

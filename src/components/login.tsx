@@ -6,17 +6,8 @@ import { Button } from "./ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback } from "react";
-import { toast } from "sonner";
 import { signIn } from "next-auth/react";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 
 export default function Login() {
   const form = useForm<Login>({
@@ -61,9 +52,13 @@ export default function Login() {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Username</FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input placeholder="Password" {...field} />
+                          <Input
+                            placeholder="Password"
+                            {...field}
+                            type="password"
+                          />
                         </FormControl>
                       </FormItem>
                     )}

@@ -1,6 +1,5 @@
 import { NextAuthOptions, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axiosInstance from "./axios-instance";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,8 +12,8 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           if (
-            credentials?.username == "admin" &&
-            credentials.password == "admin"
+            credentials?.username == process.env.USERNAME_LOGIN &&
+            credentials?.password == process.env.PASSWORD_LOGIN
           ) {
             const user: User = { id: "" };
             return user;

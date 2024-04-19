@@ -28,8 +28,6 @@ export default function Header() {
             <DropdownMenuContent side={"bottom"}>
               <DropdownMenuLabel>Btari Larasati</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Help</DropdownMenuItem>
               <DropdownMenuItem>Log Out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

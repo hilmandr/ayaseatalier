@@ -43,11 +43,11 @@ export const MENU_DASHBOARD: IMenuDashboard[] = [
     path: "/dashboard/projects",
     icon: Building3,
   },
-  {
-    label: "Articles",
-    path: "/dashboard/articles",
-    icon: NoteText,
-  },
+  // {
+  //   label: "Articles",
+  //   path: "/dashboard/articles",
+  //   icon: NoteText,
+  // },
   {
     label: "Messages",
     path: "/dashboard/messages",
