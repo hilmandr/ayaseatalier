@@ -4,7 +4,6 @@ import Container from "@/components/container";
 import ProjectsTableDb from "@/components/dashboard/project-table";
 import { Button } from "@/components/ui/button";
 import { IoIosAddCircle } from "react-icons/io";
-import { Input } from "@/components/ui/input";
 import { getProjects } from "@/actions/project";
 
 export default async function InputProjectPage() {

@@ -10,6 +10,19 @@ import { MENU } from "@/lib/constant";
 import { usePathname } from "next/navigation";
 import { useScrollPosition } from "@/hooks/use-scroll-position";
 import { useChangeLocale, useCurrentLocale } from "@/locales/client";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { EmojiSad, Warning2 } from "iconsax-react";
 
 interface HeaderProps {
   className?: string;
@@ -19,6 +32,7 @@ export default function Header({ className }: HeaderProps) {
   // Locale
   const changeLocale = useChangeLocale();
   const currentLocale = useCurrentLocale();
+  // const localeAlert =
 
   // Hooks
   const pathname = usePathname();
@@ -147,25 +161,43 @@ export default function Header({ className }: HeaderProps) {
             <div className=" flex flex-1">
               <LogoPutih />
             </div>
-            {/* <div className=" pr-5 flex gap-2.5">
-              <h3
-                className={cn(" text-neutral-500 cursor-pointer", {
-                  "text-white": currentLocale === "en",
-                })}
-                onClick={() => changeLocale("en")}
-              >
-                EN
-              </h3>
-              <span>/</span>
-              <h3
-                className={cn(" text-neutral-500 cursor-pointer", {
-                  "text-white": currentLocale === "id",
-                })}
-                onClick={() => changeLocale("id")}
-              >
-                ID
-              </h3>
-            </div> */}
+            <div className=" pr-5 flex gap-2.5">
+              <AlertDialog>
+                <h3
+                  className={cn(" text-neutral-500 cursor-pointer", {
+                    "text-white": currentLocale === "en",
+                  })}
+                  onClick={() => changeLocale("en")}
+                >
+                  EN
+                </h3>
+                <span>/</span>
+                <AlertDialogTrigger asChild>
+                  <h3
+                    className={cn(" text-neutral-500 cursor-not-allowed", {
+                      "text-white": currentLocale === "id",
+                    })}
+                    // onClick={() => changeLocale("id")}
+                  >
+                    ID
+                  </h3>
+                </AlertDialogTrigger>
+                <AlertDialogContent className=" flex flex-col items-center justify-center">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className=" flex items-center justify-center pb-2">
+                      {/* <Warning2 size="96" color="#333333" variant="TwoTone" /> */}
+                      <EmojiSad size="96" color="#333333" variant="TwoTone" />
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Unfortunately this feature aren&apos;t available :(
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Close</AlertDialogCancel>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
             <div className=" flex flex-row items-center gap-3 cursor-pointer relative">
               <button
                 className={cn(

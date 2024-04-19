@@ -6,6 +6,7 @@ import * as yup from "yup";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,9 +16,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import axios from "axios";
 import { createMessage } from "@/actions/message";
-import { CreateMessageRequest } from "@/lib/validations/project.validation";
+import {
+  CreateMessageRequest,
+  createMessageRequest,
+} from "@/lib/validations/project.validation";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -33,7 +38,18 @@ type ContactSchema = yup.InferType<typeof schema>;
 export default function HomeContact() {
   const t = useI18n();
 
+  const formDb = useForm<CreateMessageRequest>({
+    resolver: zodResolver(createMessageRequest),
+    defaultValues: {
+      email: "",
+      message: "",
+      name: "",
+      time: new Date(),
+    },
+  });
+
   const form = useForm<ContactSchema>({
+    resolver: zodResolver(createMessageRequest),
     defaultValues: {
       email: "",
       message: "",
@@ -54,20 +70,18 @@ export default function HomeContact() {
     },
     []
   );
-  // const submitOnDb: SubmitHandler<CreateMessageRequest> = useCallback(
-  //   async (data) => {
-  //     const res = await createMessage(data);
-  //     console.log(data);
-  //     form.reset();
-
-  //     toast.success("success add project");
-  //     return res;
-  //   },
-  //   [form]
-  // );
+  const submitOnDb: SubmitHandler<CreateMessageRequest> = useCallback(
+    async (data) => {
+      const res = await createMessage(data);
+      console.log(data);
+      formDb.reset();
+      return res;
+    },
+    [formDb]
+  );
   const actualSubmit = (e: any) => {
     submitNodemailer(e);
-    // submitOnDb(e);
+    submitOnDb(e);
   };
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -130,10 +144,12 @@ export default function HomeContact() {
                       <FormControl>
                         <textarea
                           className=" h-28 w-full border-b border-black px-2 py-1 focus:outline-none"
+                          maxLength={255}
                           placeholder="Write your message..."
                           {...field}
                         />
                       </FormControl>
+                      <FormDescription>Maximum 255 Character</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

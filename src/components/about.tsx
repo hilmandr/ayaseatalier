@@ -69,9 +69,9 @@ export default function AboutPage() {
         <div className=" bg-black text-white">
           <Container>
             <div className=" flex items-center w-full justify-center py-14">
-              <h1 className=" text-5xl font-bold text-center">Our Team</h1>
+              <h1 className=" text-5xl font-bold text-center">The Team</h1>
             </div>
-            <div className=" flex w-full justify-between grid lg:grid-cols-2 grid-cols-1 items-center gap-x-20 gap-y-10">
+            <div className=" w-full justify-between grid lg:grid-cols-2 grid-cols-1 items-center gap-x-20 gap-y-10">
               <div>
                 <h1 className=" text-base font-semibold">
                   Btari Larasati Kirana
