@@ -1,8 +1,9 @@
-import Header from "@/components/dashboard/header";
-import Container from "@/components/container";
-import InputProject from "@/components/dashboard/input-project";
+import Container from "../../../../components/container";
+import InputProject from "../../../../components/dashboard/input-project";
 import Link from "next/link";
 import { RxCaretRight } from "react-icons/rx";
+import React from "react";
+import Header from "../../../../components/header";
 
 export default function InputProjectPage() {
   return (

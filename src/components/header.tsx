@@ -3,12 +3,13 @@ import React, { useMemo } from "react";
 import Link from "next/link";
 import Container from "./container";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+
 import { LogoPutih, LogoHitam } from "./logo";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import { MENU } from "@/lib/constant";
+import { MENU } from "../lib/constant";
 import { usePathname } from "next/navigation";
-import { useScrollPosition } from "@/hooks/use-scroll-position";
+import { useScrollPosition } from "../hooks/use-scroll-position";
+import { cn } from "../lib/utils";
 
 interface HeaderProps {
   className?: string;

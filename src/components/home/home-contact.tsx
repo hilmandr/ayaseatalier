@@ -14,11 +14,11 @@ import {
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import axios from "axios";
-import { createMessage } from "@/actions/message";
+import { createMessage } from "../../actions/message";
 import {
   CreateMessageRequest,
   createMessageRequest,
-} from "@/lib/validations/project.validation";
+} from "../../lib/validations/project.validation";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";

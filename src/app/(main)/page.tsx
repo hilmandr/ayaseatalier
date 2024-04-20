@@ -1,10 +1,10 @@
 import Image from "next/image";
-import Container from "@/components/container";
-import Hero from "@/components/home/hero";
-import HomeProject from "@/components/home/home-project";
-import HomeContact from "@/components/home/home-contact";
-import { Project } from "@/db/schema";
-import { getProjects } from "@/actions/project";
+import Container from "../../components/container";
+import Hero from "../../components/home/hero";
+import HomeProject from "../../components/home/home-project";
+import HomeContact from "../../components/home/home-contact";
+import { getProjects } from "../../actions/project";
+import React from "react";
 
 export default async function Home() {
   const projects = await getProjects();
