@@ -1,3 +1,4 @@
+"use client";
 import { format } from "date-fns";
 import { RxCaretDown } from "react-icons/rx";
 import {
@@ -8,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
   return (
@@ -25,10 +27,15 @@ export default function Header() {
               </div>
               <RxCaretDown size={20} />
             </DropdownMenuTrigger>
-            <DropdownMenuContent side={"bottom"}>
+            <DropdownMenuContent side={"bottom"} align="end">
               <DropdownMenuLabel>Btari Larasati</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Log Out</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => signOut()}
+                className=" cursor-pointer"
+              >
+                Log Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

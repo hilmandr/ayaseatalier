@@ -1,4 +1,5 @@
 import { NextAuthOptions, User } from "next-auth";
+import withAuth from "next-auth/middleware";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: NextAuthOptions = {
@@ -18,6 +19,7 @@ export const authOptions: NextAuthOptions = {
             const user: User = { id: "" };
             return user;
           }
+
           return null;
         } catch (error) {
           throw new Error("something went wrong");
@@ -25,6 +27,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/login",
+    error: "/error",
+  },
+
   callbacks: {
     async jwt({ token, user }) {
       return { ...token, ...user };

@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useState } from "react";
 import Image from "next/image";
-import { useI18n } from "@/locales/client";
 import * as yup from "yup";
 import {
   Form,
@@ -36,8 +35,6 @@ const schema = yup.object().shape({
 type ContactSchema = yup.InferType<typeof schema>;
 
 export default function HomeContact() {
-  const t = useI18n();
-
   const formDb = useForm<CreateMessageRequest>({
     resolver: zodResolver(createMessageRequest),
     defaultValues: {
@@ -88,14 +85,17 @@ export default function HomeContact() {
   return (
     <>
       <h1 className=" text-5xl font-normal text-center pt-24" id="contact">
-        {t("contact.title")}
+        Let&#39;s get in touch
       </h1>
       <div className=" grid lg:grid-cols-2 sm:grid-cols-1 lg:px-32 px-0 lg:py-20 gap-y-20 gap-x-10 items-center justify-between">
         <div className=" aspect-[7/10] relative max-w-xs hidden md:block">
           <Image className="" src="/image/contact.jpg" alt="" fill></Image>
         </div>
         <div className=" flex flex-col">
-          <p className=" leading-loose">{t("contact.postTitle")}</p>
+          <p className=" leading-loose">
+            Engage with Me: Feel Free to Get in Touch – I&#39;m Excited to
+            Connect with You!
+          </p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(actualSubmit)}>
               <div className=" mt-5 flex flex-col gap-10">
@@ -167,7 +167,7 @@ export default function HomeContact() {
                     type="submit"
                     className=" flex w-36 h-14 bg-black text-white border rounded-full py-2 justify-center items-center hover:text-black hover:bg-white transition-all duration-150 hover:border-stone-800"
                   >
-                    <p className=" text-center">{t("contact.button")}</p>
+                    <p className=" text-center">Send</p>
                   </Button>
                 )}
               </div>
