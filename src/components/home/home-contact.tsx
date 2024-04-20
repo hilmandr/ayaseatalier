@@ -65,7 +65,7 @@ export default function HomeContact() {
         setLoading(false);
       }
     },
-    []
+    [form]
   );
   const submitOnDb: SubmitHandler<CreateMessageRequest> = useCallback(
     async (data) => {

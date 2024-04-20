@@ -6,11 +6,7 @@ import HomeContact from "@/components/home/home-contact";
 import { Project } from "@/db/schema";
 import { getProjects } from "@/actions/project";
 
-interface ProjectItem2Props {
-  project: Project[];
-}
-
-export default async function Home({ project }: ProjectItem2Props) {
+export default async function Home() {
   const projects = await getProjects();
   return (
     <>
