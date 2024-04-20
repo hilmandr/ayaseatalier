@@ -34,7 +34,7 @@ export default function Hero() {
                 duration={2000}
               >
                 <PiArrowCircleDownThin
-                  class="relative cursor-pointer"
+                  className="relative cursor-pointer"
                   size={60}
                 />
               </LinkRS>

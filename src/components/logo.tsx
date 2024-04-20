@@ -32,3 +32,18 @@ export function LogoHitam() {
     </>
   );
 }
+export function LogoHitamDashboard() {
+  return (
+    <>
+      <Link href="/dashboard">
+        <Image
+          src="/image/brandmark hitam-01.png"
+          alt=""
+          width={100}
+          height={100}
+          className=" cursor-pointer"
+        ></Image>
+      </Link>
+    </>
+  );
+}

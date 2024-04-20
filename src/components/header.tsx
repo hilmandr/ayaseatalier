@@ -1,23 +1,32 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import Container from "./container";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+
 import { LogoPutih, LogoHitam } from "./logo";
 import { AnimatePresence, Variants, motion } from "framer-motion";
-import { MENU } from "@/lib/constant";
+import { MENU } from "../lib/constant";
 import { usePathname } from "next/navigation";
-import { useScrollPosition } from "@/hooks/use-scroll-position";
+import { useScrollPosition } from "../hooks/use-scroll-position";
+import { cn } from "../lib/utils";
 
 interface HeaderProps {
   className?: string;
 }
 
 export default function Header({ className }: HeaderProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // Hooks
   const pathname = usePathname();
+  const actualPathName = useMemo<string>(() => {
+    const arrPathname = pathname.split("/");
+    arrPathname.splice(0, 1);
+    return `/${arrPathname.join("/")}`;
+  }, [pathname]);
   const scrollPosition = useScrollPosition();
+
+  // State
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const menuVars: Variants = {
     initial: {
@@ -80,14 +89,14 @@ export default function Header({ className }: HeaderProps) {
     <>
       <div
         className={cn(
-          "  w-full z-50 bg-black text-white fixed items-center",
+          "  w-full z-50 bg-transparent text-white fixed items-center transition-all transform duration-500",
           {
-            "bg-transparent transition-all transform duration-200":
-              pathname == "/",
+            "bg-black transition-all transform duration-500":
+              actualPathName !== "/",
           },
           {
-            "bg-black transition-all transform duration-200":
-              scrollPosition > 775,
+            "bg-black transition-all transform duration-500":
+              scrollPosition > 100,
           }
         )}
       >
@@ -133,9 +142,6 @@ export default function Header({ className }: HeaderProps) {
           <div className=" flex items-center py-4 justify-between">
             <div className=" flex flex-1">
               <LogoPutih />
-            </div>
-            <div className=" pr-5">
-              <h3 className=" text-white cursor-pointer">EN</h3>
             </div>
             <div className=" flex flex-row items-center gap-3 cursor-pointer relative">
               <button
