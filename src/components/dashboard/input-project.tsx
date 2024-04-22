@@ -47,12 +47,12 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
   const form = useForm<CreateProjectRequest>({
     resolver: zodResolver(createProjectRequest),
     defaultValues: {
-      title: "judul",
-      place: "tempat",
-      client: "client",
-      content: "content",
+      title: "",
+      place: "",
+      client: "",
+      content: "",
       date: new Date(),
-      summary: "summary",
+      summary: "",
     },
   });
 
