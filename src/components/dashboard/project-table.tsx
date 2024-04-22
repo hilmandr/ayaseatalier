@@ -77,7 +77,7 @@ export default function ProjectsTable({ project }: ProjectItemProps) {
       <div className=" flex w-80 my-5">
         <Input
           type="text"
-          placeholder="Search Project.."
+          placeholder="Search Project Title..."
           value={searchProject}
           onChange={handleSearchProject}
         />
