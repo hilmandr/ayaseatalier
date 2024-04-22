@@ -7,7 +7,7 @@ import { getProjects } from "../../actions/project";
 import React from "react";
 
 export default async function Home() {
-  const projects = await getProjects();
+  const project = await getProjects();
   return (
     <>
       <Hero />
@@ -33,7 +33,7 @@ export default async function Home() {
             </p>
           </div>
         </div>
-        <HomeProject project={projects} />
+        <HomeProject projects={project} />
         <HomeContact />
       </Container>
     </>
