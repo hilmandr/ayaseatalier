@@ -60,7 +60,7 @@ export default function ViewProject({ project }: PageParams) {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink href="/components">Projects</BreadcrumbLink>
+                <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>

@@ -3,7 +3,7 @@ import InputProject from "../../../../components/dashboard/input-project";
 import Link from "next/link";
 import { RxCaretRight } from "react-icons/rx";
 import React from "react";
-import Header from "../../../../components/header";
+import Header from "../../../../components/dashboard/header";
 
 export default function InputProjectPage() {
   return (
