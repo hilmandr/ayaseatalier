@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 export default function Header() {
   return (
@@ -23,7 +24,14 @@ export default function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger className=" flex w-full items-center">
               <div className=" flex w-10 h-10 bg-black items-center justify-center">
-                <h1 className=" text-white">BL</h1>
+                <h1 className=" text-white">
+                  <Image
+                    src="/image/dashboard/profiel.jpeg"
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
+                </h1>
               </div>
               <RxCaretDown size={20} />
             </DropdownMenuTrigger>

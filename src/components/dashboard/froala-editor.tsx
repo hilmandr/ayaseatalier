@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/js/plugins.pkgd.min.js";
-// import "@fortawesome/fontawesome-free/css/all.min.css";
-import FroalaEditor from "react-froala-wysiwyg";
 import "froala-editor/js/plugins/image.min.js";
+import FroalaEditor from "react-froala-wysiwyg";
+import dynamic from "next/dynamic";
 
 interface FroalaEditorProps {
   setValue: (value: string) => void;
@@ -14,11 +14,7 @@ interface FroalaEditorProps {
 }
 
 const ContentEditor = ({ value, setValue }: FroalaEditorProps) => {
-  const [content, setContent] = useState("");
-  //   const handleModelChange = (event: any) => {
-  //     setContent(event);
-  //   };
-
+  // @ts-ignore
   return (
     <>
       <div>
@@ -31,11 +27,11 @@ const ContentEditor = ({ value, setValue }: FroalaEditorProps) => {
             events: {
               "image.beforeUpload": function (files: any) {
                 var editor = this;
-                if (files.length) {
-                  // Create a File Reader.
-                  var reader = new FileReader();
-                  // Set the reader to insert images when they are loaded.
 
+                if (files.length) {
+                  // @ts-ignore
+                  var reader = new FileReader();
+                  // @ts-ignore
                   reader.onload = function (e) {
                     // @ts-ignore
                     var result = e.target.result;

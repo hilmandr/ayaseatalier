@@ -36,9 +36,14 @@ import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import ContentEditor from "./froala-editor";
+// import ContentEditor from "./froala-editor";
 import { Label } from "../ui/label";
 import { Loader2 } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const ContentEditor = dynamic(() => import("./froala-editor"), {
+  ssr: false,
+});
 
 export default forwardRef<Object, EditorProps>(function RichTextEditor(
   props,
@@ -67,11 +72,10 @@ export default forwardRef<Object, EditorProps>(function RichTextEditor(
     }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles, open } =
-    useDropzone({
-      onDrop,
-      maxFiles: 1,
-    });
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+  });
   const onSubmit: SubmitHandler<CreateProjectRequest> = useCallback(
     async (data) => {
       if (thumbnail) {
