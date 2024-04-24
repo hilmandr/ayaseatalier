@@ -7,8 +7,10 @@ import { Toaster } from "@/components/ui/sonner";
 
 export default function MainLayout({
   children,
+  project,
 }: {
   children: React.ReactNode;
+  project: React.ReactNode;
 }) {
   return (
     <Providers>
