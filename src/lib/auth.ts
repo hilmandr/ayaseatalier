@@ -13,10 +13,10 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         try {
           if (
-            credentials?.username == process.env.USERNAME_LOGIN &&
-            credentials?.password == process.env.PASSWORD_LOGIN
+            credentials?.username === process.env.USERNAME_LOGIN &&
+            credentials?.password === process.env.PASSWORD_LOGIN
           ) {
-            const user: User = { id: "" };
+            const user: User = { id: "", name: "Ayase" };
             return user;
           }
 
