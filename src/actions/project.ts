@@ -48,7 +48,7 @@ export const deleteProjectById = async (id: string): Promise<Project> => {
     .delete(project)
     .where(eq(project.id, id))
     .returning();
-  revalidatePath("/dashboard/kegiatan-berita");
+  revalidatePath("/dashboard/projects");
   return deleteProject;
 };
 

@@ -52,7 +52,7 @@ export default function ProjectsTable({ project }: ProjectItemProps) {
       setShowDialog((prev) => !prev);
       setSelectedProject(undefined);
 
-      route.push("/ad");
+      route.push("/dashboard/projects");
     }
   };
   const [listProject, setlistProject] = useState(project);
