@@ -8,7 +8,7 @@ export default async function Home() {
       <div className="  flex-col justify-between gap-4 lg:gap-10 flex lg:flex-row items-center py-28 bg-white w-full">
         <div className=" w-full h-[312px] relative">
           <Image
-            src="/image/projects/ksm/ksm-01.jpeg"
+            src="/image/projects/CMC Room/375782825_822274776037714_8248945130392234018_n.jpg"
             alt=""
             fill
             className="object-cover object-center"

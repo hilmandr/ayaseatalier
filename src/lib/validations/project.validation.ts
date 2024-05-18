@@ -21,18 +21,3 @@ export const createProjectRequest = z.object({
 });
 
 export type CreateProjectRequest = z.infer<typeof createProjectRequest>;
-
-export const createMessageRequest = z.object({
-  name: z.string().min(1, {
-    message: "Name must be filled.",
-  }),
-  email: z.string().min(1, {
-    message: "Email must be filled.",
-  }),
-  message: z.string().min(1, {
-    message: "Message must be filled.",
-  }),
-  time: z.date(),
-});
-
-export type CreateMessageRequest = z.infer<typeof createMessageRequest>;
