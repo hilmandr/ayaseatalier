@@ -124,6 +124,7 @@ export default function Header({ className }: HeaderProps) {
                     <motion.div variants={mobileLinkVars}>
                       <Link
                         href={menu.path}
+                        onClick={() => setIsOpen((prev) => !prev)}
                         className={cn(
                           " group relative text-[36px] font-semibold leading-tight text-black perspective-origin-bottom-left perspective-200"
                         )}
@@ -146,7 +147,7 @@ export default function Header({ className }: HeaderProps) {
             <div className=" flex flex-row items-center gap-3 cursor-pointer relative">
               <button
                 className={cn(
-                  " flex flex-col z-50 w-12 h-12 rounded-full bg-white cursor-pointer items-center justify-center border border-stone-900"
+                  " flex flex-col z-50 w-12 h-12 rounded-full bg-white cursor-pointer items-center justify-center border border-stone-900 transform transition-all duration-300 hover:rotate-90"
                 )}
                 onClick={() => setIsOpen(!isOpen)}
               >

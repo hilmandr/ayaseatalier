@@ -18,33 +18,13 @@ import { createMessage } from "../../actions/message";
 import {
   CreateMessageRequest,
   createMessageRequest,
-} from "../../lib/validations/project.validation";
+} from "../../lib/validations/contact.validation";
 import { Button } from "../ui/button";
 import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const schema = yup.object().shape({
-  name: yup.string().required("Name is required"),
-  email: yup
-    .string()
-    .required("Email is required")
-    .email("Must be a valid email"),
-  message: yup.string(),
-});
-
-type ContactSchema = yup.InferType<typeof schema>;
+import { ContactSchema } from "@/lib/validations/contact.validation";
 
 export default function HomeContact() {
-  const formDb = useForm<CreateMessageRequest>({
-    resolver: zodResolver(createMessageRequest),
-    defaultValues: {
-      email: "",
-      message: "",
-      name: "",
-      time: new Date(),
-    },
-  });
-
   const form = useForm<ContactSchema>({
     resolver: zodResolver(createMessageRequest),
     defaultValues: {
@@ -60,26 +40,15 @@ export default function HomeContact() {
       const res = await axios.post<{ message: string }>("/api/contact", values);
       console.log(res);
       if (res.status === 200) {
+        const res = await createMessage(values);
         form.reset();
         toast.success("Message has been sent!");
         setLoading(false);
+        return res;
       }
     },
     [form]
   );
-  const submitOnDb: SubmitHandler<CreateMessageRequest> = useCallback(
-    async (data) => {
-      const res = await createMessage(data);
-      console.log(data);
-      formDb.reset();
-      return res;
-    },
-    [formDb]
-  );
-  const actualSubmit = (e: any) => {
-    submitNodemailer(e);
-    submitOnDb(e);
-  };
   const [loading, setLoading] = useState<boolean>(false);
 
   return (
@@ -97,7 +66,7 @@ export default function HomeContact() {
             Connect with You!
           </p>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(actualSubmit)}>
+            <form onSubmit={form.handleSubmit(submitNodemailer)}>
               <div className=" mt-5 flex flex-col gap-10">
                 <FormField
                   control={form.control}
@@ -163,7 +132,7 @@ export default function HomeContact() {
                   </Button>
                 ) : (
                   <Button
-                    onClick={() => actualSubmit}
+                    onClick={() => submitNodemailer}
                     type="submit"
                     className=" flex w-36 h-14 bg-black text-white border rounded-full py-2 justify-center items-center hover:text-black hover:bg-white transition-all duration-150 hover:border-stone-800"
                   >

@@ -1,10 +1,13 @@
 "use server";
 import { db } from "@/db";
 import { Message, message } from "@/db/schema";
-import { CreateMessageRequest } from "@/lib/validations/project.validation";
+import {
+  ContactSchema,
+  CreateMessageRequest,
+} from "@/lib/validations/contact.validation";
 import { revalidatePath } from "next/cache";
 
-export const createMessage = async (request: CreateMessageRequest) => {
+export const createMessage = async (request: ContactSchema) => {
   const newMessage = await db
     .insert(message)
     .values({

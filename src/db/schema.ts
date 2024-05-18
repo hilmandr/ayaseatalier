@@ -1,5 +1,12 @@
 import { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { pgTable, timestamp, uuid, varchar, serial } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  timestamp,
+  uuid,
+  varchar,
+  serial,
+  date,
+} from "drizzle-orm/pg-core";
 
 export const project = pgTable("project", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -21,8 +28,8 @@ export const message = pgTable("message", {
   // slug: varchar("slug").notNull(),
   name: varchar("name").notNull(),
   email: varchar("email").notNull(),
-  message: varchar("message").notNull(),
-  time: timestamp("time").notNull(),
+  message: varchar("message"),
+  time: timestamp("time").notNull().defaultNow(),
 });
 
 export type Message = InferSelectModel<typeof message>;
